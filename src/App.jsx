@@ -1,13 +1,13 @@
 import './App.css'
-import Counter from './components/Counter'
+import Navigation from './Navigation/Nav'
 
 function App() {
   return (
     <>
-      <h1 className="text-center mt-4">API - 2024</h1>
-      <Counter />
+      {/* <h1 className="text-center mt-4">API - 2024</h1> */}
+      <Navigation />
     </>
   )
 }
 
-export default App
+export default App;
