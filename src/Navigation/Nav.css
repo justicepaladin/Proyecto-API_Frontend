@@ -1,0 +1,10 @@
+nav 
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 2rem;
+    padding: 20px;
+    z-index: 999;
+    border-bottom: 2px solid #f3f3f3;
+}
