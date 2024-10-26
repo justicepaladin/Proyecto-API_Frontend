@@ -3,7 +3,7 @@ import "./Nav.css"; // Estilizado del Nav
 import { AiOutlineShoppingCart, AiOutlineUserAdd } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
 
-function Nav() {
+export const Nav = () => {
   return (
     <nav>
         <div className="nav-container">
@@ -27,5 +27,3 @@ function Nav() {
     </nav>
   )
 }
-
-export default Nav;

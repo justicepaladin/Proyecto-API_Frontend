@@ -1,10 +1,15 @@
 import {AiFillStar} from "react-icons/ai";
 import { IoBagAddSharp } from "react-icons/io5";
 
-import "./Products.css";
 
-function Products() {
+import "./Products.css";
+import { Nav } from "../Navigation/Nav";
+import { Recommended } from "../Recommended/Recommended";
+
+export const Products = () => {
   return <>
+    <Nav />
+      
     <section className="card-container">
       <section className="card">
         <img src="https://m.media-amazon.com/images/I/71E75yRwCDL._AC_UY575_.jpg"
@@ -106,8 +111,7 @@ function Products() {
 
     </section>
 
+    <Recommended />
 
   </>
 }
-
-export default Products;

@@ -1,9 +1,7 @@
 import "./Recommended.css";
 
-function Recommended() {
+export const Recommended = () => {
   return (
     <div>Recommended</div>
   )
 }
-
-export default Recommended;
