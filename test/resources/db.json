@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "nombre": "Juan",
+      "apellido": "Pérez",
+      "email":"test@gmail.com"
+    }
+  ],
+  "factura": [
+      {
+        "id":"1",
+        "nombreUsuario": "Juan Pérez",
+        "vendedor": "Todo deporte",
+        "items": [
+            {
+                "idProducto": 1,
+                "descripcion": "Adidas JumpCrazy Talle 40,0",
+                "precioUnidad": 99.99,
+                "unidad": 2
+            },
+            {
+                "idProducto": 2,
+                "descripcion": "Adidas JumpCrazy Talle 42,0",
+                "precioUnidad": 99.99,
+                "unidad": 1
+            },
+            {
+                "idProducto": 3,
+                "descripcion": "Adidas JumpCrazy Talle 37,0",
+                "precioUnidad": 99.99,
+                "unidad": 1
+            }
+        ],
+        "total": 399.96,
+        "fechaCompra": "2024-10-28"
+    },
+    {
+      "id":"2",
+      "nombreUsuario": "Juan Pérez",
+      "vendedor": "Todo deporte",
+      "items": [
+          {
+              "idProducto": 1,
+              "descripcion": "Adidas JumpCrazy Talle 40,0",
+              "precioUnidad": 99.99,
+              "unidad": 2
+          },
+          {
+              "idProducto": 2,
+              "descripcion": "Adidas JumpCrazy Talle 42,0",
+              "precioUnidad": 99.99,
+              "unidad": 1
+          },
+          {
+              "idProducto": 3,
+              "descripcion": "Adidas JumpCrazy Talle 37,0",
+              "precioUnidad": 99.99,
+              "unidad": 1
+          }
+      ],
+      "total": 499.96,
+      "fechaCompra": "2024-10-28"
+    }
+  ]
+}
