@@ -13,6 +13,9 @@ export const Main = () => {
   const { showNotification } = useNotification()
   console.log(jwt)
   useEffect(() => {
+    if(import.meta.env.VITE_AUTH_ENABLED){
+      return
+    }
     if (!jwt) {
       showNotification('La sesión a expirado')
       return navigate('/login')
