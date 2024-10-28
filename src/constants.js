@@ -1,0 +1,1 @@
+export const LOCAL_STORAGE_JWT = "LOCAL_STORAGE_JWT"
