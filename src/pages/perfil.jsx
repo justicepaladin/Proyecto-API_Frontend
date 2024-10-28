@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   IconButton,
+  Modal,
   Table,
   TableBody,
   TableCell,
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react'
 import { getProfile } from '../services/profileService'
 import { getFacturas } from '../services/facturaService'
 import { Preview, Visibility } from '@mui/icons-material'
+import { FaturaDetails } from '../components/FacturaDetails'
 
 /**
  *
@@ -33,6 +35,9 @@ export const PerfilPage = () => {
   const [facturas, setFacturas] = useState([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
+
+  const [openFacturaView, setOpenFacturaView] = useState(false)
+  const [factura, setFactura] = useState()
 
   const handleFetchProfile = async () => {
     let user = await getProfile()
@@ -51,6 +56,25 @@ export const PerfilPage = () => {
   const handleChangePage = (value) => {
     setPage(value.target.value)
   }
+
+  const handleOpenFacturaView = (factura) => {
+    setOpenFacturaView(true)
+    setFactura(factura)
+  }
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'rgb(255, 255, 255)',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
 
   useEffect(() => {
     handleFetchProfile()
@@ -111,9 +135,9 @@ export const PerfilPage = () => {
                     <TableCell>{factura.id}</TableCell>
                     <TableCell>{factura.vendedor}</TableCell>
                     <TableCell>{factura.fechaCompra}</TableCell>
-                    <TableCell>{factura.total}</TableCell>
+                    <TableCell>${factura.total}</TableCell>
                     <TableCell>
-                      <IconButton title="Ver detalle">
+                      <IconButton title="Ver detalle" onClick={e => handleOpenFacturaView(factura)}>
                         <Preview />
                       </IconButton>
                     </TableCell>
@@ -134,6 +158,22 @@ export const PerfilPage = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Container>
+
+      {factura ? 
+        <Modal
+          open={openFacturaView}
+          onClose={e => setOpenFacturaView(false)}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box sx={{ ...style,width: "70vw" }}>
+            <h2 id="parent-modal-title">Detalle de factura</h2>
+            <FaturaDetails factura={factura}/>
+          </Box>
+        </Modal>
+      :
+        <></>
+      }
     </>
   )
 }
