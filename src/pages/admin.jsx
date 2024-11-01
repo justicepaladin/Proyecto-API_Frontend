@@ -12,15 +12,16 @@ import
     TableContainer,
     TableHead,
     TableRow,
-    TextField,
+    TextField
 } 
 from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { getProductos , addProduct , editProduct , deleteProduct } from '../services/productoService';
+import { getProducts , addProduct , editProduct , deleteProduct } from '../services/productoService';
+import { Preview } from '@mui/icons-material';
 
-const ProductDashboard = () => {
+export const ProductDashboard = () => {
     const [products, setProducts] = useState([]);
     const [openAddModal, setOpenAddModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
@@ -33,7 +34,7 @@ const ProductDashboard = () => {
             setProducts(data);
         } catch (error) {
             console.error('Error al obtener los productos:', error);
-            // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+            // Hay que manejar el error para mostrarle un mensaje al usuario
         }
     };
 
@@ -101,7 +102,8 @@ const ProductDashboard = () => {
                                 <TableCell>{product.nombre}</TableCell>
                                 <TableCell>{product.descripcion}</TableCell>
                                 <TableCell>{product.precio}</TableCell>
-                                <TableCell>{product.stock}</TableCell>
+                                <TableCell><Preview /></TableCell>
+
                                 <TableCell>
                                     <IconButton onClick={() => { setSelectedProduct(product); setOpenEditModal(true); }}>
                                         <EditIcon />
@@ -192,4 +194,3 @@ const ProductDashboard = () => {
     );
 };
 
-export default ProductDashboard;

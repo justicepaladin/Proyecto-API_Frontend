@@ -3,6 +3,7 @@ import { Backoffice } from '../pages/backoffice'
 import { Login } from '../pages/login'
 import { Main } from '../pages/main'
 import { Register } from '../pages/register'
+import { ProductDashboard } from '../pages/admin'
 
 export default createBrowserRouter([
   {
@@ -21,4 +22,8 @@ export default createBrowserRouter([
     path: '/register',
     element: <Register />,
   },
+  {
+    path: "/admin",
+    element: <ProductDashboard />,
+  }
 ])
