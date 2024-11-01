@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import {
+import 
+{
     Box,
     Button,
     Container,
@@ -12,11 +13,12 @@ import {
     TableHead,
     TableRow,
     TextField,
-} from '@mui/material';
+} 
+from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { getProductos } from '../services/productoService';
+import { getProductos , addProduct , editProduct , deleteProduct } from '../services/productoService';
 
 const ProductDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -24,14 +26,14 @@ const ProductDashboard = () => {
     const [openEditModal, setOpenEditModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
-    // Obtener la lista de productos desde la API
+    // Obtener la lista de productos usando el servicio
     const fetchProducts = async () => {
         try {
-            const response = await getProductos(); 
-            const data = await response.json();
+            const data = await getProducts();
             setProducts(data);
         } catch (error) {
             console.error('Error al obtener los productos:', error);
+            // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
         }
     };
 
@@ -42,43 +44,36 @@ const ProductDashboard = () => {
     // Agregar un nuevo producto
     const handleAddProduct = async (newProduct) => {
         try {
-            const response = await fetch('/api/products', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newProduct),
-            });
-            const data = await response.json();
+            const data = await addProduct(newProduct);
             setProducts([...products, data]);
             setOpenAddModal(false);
         } catch (error) {
             console.error('Error al agregar el producto:', error);
+            // Manejar el error
         }
     };
 
     // Editar un producto existente
     const handleEditProduct = async (updatedProduct) => {
         try {
-            const response = await fetch(`/api/products/${updatedProduct.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedProduct),
-            });
-            const data = await response.json();
+            const data = await editProduct(updatedProduct);
             setProducts(products.map(p => (p.id === data.id ? data : p)));
             setOpenEditModal(false);
             setSelectedProduct(null);
         } catch (error) {
             console.error('Error al editar el producto:', error);
+            // Manejar el error
         }
     };
 
     // Eliminar un producto
     const handleDeleteProduct = async (productId) => {
         try {
-            await fetch(`/api/products/${productId}`, { method: 'DELETE' });
+            await deleteProduct(productId);
             setProducts(products.filter(p => p.id !== productId));
         } catch (error) {
             console.error('Error al eliminar el producto:', error);
+            // Manejar el error
         }
     };
 
