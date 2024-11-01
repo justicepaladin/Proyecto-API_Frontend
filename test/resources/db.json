@@ -4,7 +4,7 @@
       "id": "1",
       "nombre": "Juan",
       "apellido": "Pérez",
-      "email":"test@gmail.com"
+      "email": "test@gmail.com"
     }
   ],
   "factura": [
@@ -37,17 +37,17 @@
         {
           "idProducto": 1,
           "descripcion": "Puma SpeedX Talle 39,0",
-          "precioUnidad": 85.50,
+          "precioUnidad": 85.5,
           "unidad": 2
         },
         {
           "idProducto": 2,
           "descripcion": "Reebok Classic Talle 42,0",
-          "precioUnidad": 70.00,
+          "precioUnidad": 70,
           "unidad": 1
         }
       ],
-      "total": 241.00,
+      "total": 241,
       "fechaCompra": "2024-09-28"
     },
     {
@@ -85,12 +85,74 @@
         {
           "idProducto": 6,
           "descripcion": "Adidas UltraBoost Talle 40,0",
-          "precioUnidad": 150.00,
+          "precioUnidad": 150,
           "unidad": 1
         }
       ],
       "total": 309.98,
       "fechaCompra": "2024-10-15"
+    }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "img": "https://m.media-amazon.com/images/I/71VaQ+V6XnL._AC_UY695_.jpg",
+      "title": "Nike Zoom Freak 4",
+      "star": "",
+      "reviews": "(123 reviews)",
+      "prevPrice": "$140,00",
+      "newPrice": "200",
+      "company": "Nike",
+      "color": "green",
+      "category": "sneakers",
+      "stock": {
+        "39": 10,
+        "40": 5,
+        "41": 3,
+        "42": 7,
+        "43": 2,
+        "44": 1
+      }
+    },
+    {
+      "id": 2,
+      "img": "https://m.media-amazon.com/images/I/61-cBsLhJHL._AC_UY695_.jpg",
+      "title": "Nike Men's Sneaker",
+      "star": "",
+      "reviews": "(123 reviews)",
+      "prevPrice": "$140,00",
+      "newPrice": "200",
+      "company": "Nike",
+      "color": "blue",
+      "category": "sneakers",
+      "stock": {
+        "39": 10,
+        "40": 5,
+        "41": 3,
+        "42": 7,
+        "43": 2,
+        "44": 1
+      }
+    },
+    {
+      "id": 3,
+      "img": "https://m.media-amazon.com/images/I/71VaQ+V6XnL._AC_UY695_.jpg",
+      "title": "Nike Zoom Freak 666",
+      "star": "",
+      "reviews": "(123 reviews)",
+      "prevPrice": "$140,00",
+      "newPrice": "200",
+      "company": "Nike",
+      "color": "green",
+      "category": "sneakers",
+      "stock":{
+        "39": 10,
+        "40": 5,
+        "41": 3,
+        "42": 7,
+        "43": 2,
+        "44": 1
+      }
     }
   ]
 }
