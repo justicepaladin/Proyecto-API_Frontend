@@ -4,3 +4,4 @@
 
 1. Instalar dependencies `npm i`
 2. Correr codigo `npm run dev`
+3. Correr json-server `npm run json-server`
