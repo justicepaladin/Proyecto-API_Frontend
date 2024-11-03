@@ -64,8 +64,13 @@ return (
         justifyContent="center"
         minHeight="100vh"
         sx={{
-        background: 'linear-gradient(135deg, #4E94A8, #6E3B8B)',
+        background: 'url("https://img.freepik.com/foto-gratis/primer-plano-zapatillas-futuristas_23-2151005732.jpg?t=st=1730597794~exp=1730601394~hmac=ff96431b05cb24fc41497d6931ec96e3d53cf664fb5fbafff16e12fcf9d488d1&w=740")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        width: '100%',
+        height: '100%',
         padding: 3,
+        margin: 0,
         }}
     >
         <Box
@@ -135,6 +140,11 @@ return (
                 </Button>
             </Box>
         </Box>
+            <Box sx={{ mt: 2}}>
+                    <Button color="secondary" onClick={() => navigate('/login')}>
+                        ¿Ya está registrado? Inicie Sesión
+                    </Button>
+            </Box>
         </Box>
     </Box>
 );
