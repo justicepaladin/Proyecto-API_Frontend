@@ -1,9 +1,10 @@
-import axios from "axios";
-import { API_URL } from "../utils";
+import { API_CLIENT } from "../api/client"
+
+
+
 
 export async function getProfile(){
-    let response = await axios.get(`${API_URL}/users/1`)
+    let response = await API_CLIENT().get(`/user`)
 
-    console.log(response.data)
     return response.data
 }

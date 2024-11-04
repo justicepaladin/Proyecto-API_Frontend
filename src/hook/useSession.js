@@ -14,13 +14,13 @@ const useSession = () => {
     const login = async (email, password) => {
         try {
             const response = await apiLogin(email, password)
-            console.log(response)
             if (!response.ok) {
                 throw new Error('Login failed');
             }
 
             const { data } = response
             dispatch(loginSuccess({ jwtToken: data.jwtToken }));
+            localStorage.setItem("JWT", data.jwtToken)
             success = true
         } catch (error) {
             console.log(error)

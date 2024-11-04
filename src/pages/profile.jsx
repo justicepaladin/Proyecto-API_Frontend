@@ -107,7 +107,7 @@ export const PerfilPage = () => {
             textAlign: 'start',
           }}
         >
-          <p>Nombre: {profileData.nombre}</p>
+          <p>Nombre: {profileData.nombre} {profileData.apellido}</p>
           <p>Email: {profileData.email}</p>
         </Container>
 
