@@ -12,7 +12,10 @@ import
     TableContainer,
     TableHead,
     TableRow,
-    TextField
+    TextField,
+    List,
+    ListItem,
+    ListItemText
 } 
 from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,6 +29,8 @@ export const ProductDashboard = () => {
     const [openAddModal, setOpenAddModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [stockModalOpen, setStockModalOpen] = useState(false);
+    const [selectedProductStock, setSelectedProductStock] = useState(null);
 
     // Obtener la lista de productos usando el servicio
     const fetchProducts = async () => {
@@ -78,6 +83,12 @@ export const ProductDashboard = () => {
         }
     };
 
+    // mostrar stock del producto
+    const handleOpenStockModal = (product) => {
+        setSelectedProductStock(product);
+        setStockModalOpen(true);
+    };
+
     return (
         <Container>
             <h1>Dashboard de Productos</h1>
@@ -102,7 +113,11 @@ export const ProductDashboard = () => {
                                 <TableCell>{product.nombre}</TableCell>
                                 <TableCell>{product.descripcion}</TableCell>
                                 <TableCell>{product.precio}</TableCell>
-                                <TableCell><Preview /></TableCell>
+                                <TableCell>
+                                    <IconButton onClick={() => handleOpenStockModal(product)}>
+                                        <Preview />
+                                    </IconButton>
+                                </TableCell>
 
                                 <TableCell>
                                     <IconButton onClick={() => { setSelectedProduct(product); setOpenEditModal(true); }}>
@@ -187,6 +202,31 @@ export const ProductDashboard = () => {
                                 Guardar
                             </Button>
                         </form>
+                    )}
+                </Box>
+            </Modal>
+            {/* Modal para ver stock del producto*/}
+            <Modal open={stockModalOpen} onClose={() => setStockModalOpen(false)}>
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p:4,
+                }}>
+                    <h2>Stock de {selectedProductStock ? selectedProductStock.nombre : ''}</h2>
+                    {selectedProductStock && (
+                        <List>
+                            {selectedProductStock.stock.map((item) => (
+                                <ListItem key={item.id}>
+                                    <ListItemText primary={`Talle: ${item.talle}, Cantidad: ${item.cantidad}`} />
+                                </ListItem>
+                            ))}
+                        </List>
                     )}
                 </Box>
             </Modal>
