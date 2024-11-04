@@ -11,10 +11,9 @@ export const Main = () => {
   const navigate = useNavigate()
   const { jwt } = useSelector((state) => state.session)
   const { showNotification } = useNotification()
-  
 
   useEffect(() => {
-    if(import.meta.env.VITE_AUTH_ENABLED){
+    if (import.meta.env.VITE_AUTH_ENABLED === 'true') {
       return
     }
     if (!jwt) {
