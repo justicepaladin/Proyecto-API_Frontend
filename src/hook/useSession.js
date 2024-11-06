@@ -11,6 +11,37 @@ const useSession = () => {
     const navigate = useNavigate();
     const { showNotification } = useNotification()
 
+    const register = async (email, password) => {
+        try {
+            // TODO
+            // TENGO QUE ARREGLAR ESTO - MATI
+            const response = await fetch('http://localhost:5173/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+    
+            if (response.ok) {
+                showNotification('Registro exitoso', 'success'); // Notificación de éxito
+                return true;
+            } else if (response.status === 409) {
+                showNotification('El correo ya está registrado', 'error'); // Notificación de error
+                // Manejo si ya existe el usuario
+                return false;
+            } else {
+                showNotification('Error en el registro', 'error'); // Notificación de error genérico
+                return false;
+            }
+        } catch (error) {
+            console.error('Error al registrar usuario:', error);
+            showNotification('Error al registrar usuario', 'error'); // Notificación de error en caso de fallo de red
+            return false;
+        }
+    };
+
+
     const login = async (email, password) => {
         try {
             const response = await apiLogin(email, password)
@@ -32,7 +63,7 @@ const useSession = () => {
         return success
     }
 
-    return { login };
+    return { login, register };
 };
 
 export default useSession;
