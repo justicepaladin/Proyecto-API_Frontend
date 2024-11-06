@@ -5,6 +5,16 @@
       "nombre": "Juan",
       "apellido": "Pérez",
       "email": "test@gmail.com"
+    },
+    {
+      "id": "4126",
+      "email": "usuario@usuario.com",
+      "password": "usuario"
+    },
+    {
+      "id": "b6c3",
+      "email": "usuario@gmail.com",
+      "password": "holamuchogusto"
     }
   ],
   "factura": [
@@ -95,120 +105,119 @@
   ],
   "productos": [
     {
-        "id": 6,
-        "nombre": "Reebok Classic",
-        "descripcion": "El modelo retro que sigue vigente",
-        "imagen": "reebokclassic.jpg",
-        "precio": 89.99,
-        "categorias": [
-            "Reebok",
-            "Skateboarding"
-        ],
-        "stock": [
-            {
-                "id": 10,
-                "talle": 39.0,
-                "cantidad": 15
-            },
-            {
-                "id": 11,
-                "talle": 44.0,
-                "cantidad": 7
-            }
-        ]
+      "id": "6",
+      "nombre": "Reebok Classic",
+      "descripcion": "El modelo retro que sigue vigente",
+      "imagen": "reebokclassic.jpg",
+      "precio": 89.99,
+      "categorias": [
+        "Reebok",
+        "Skateboarding"
+      ],
+      "stock": [
+        {
+          "id": 10,
+          "talle": 39,
+          "cantidad": 15
+        },
+        {
+          "id": 11,
+          "talle": 44,
+          "cantidad": 7
+        }
+      ]
     },
     {
-        "id": 3,
-        "nombre": "DC Big Skater",
-        "descripcion": "Para ese fan que le encanta quemar zapas caras con la lija del board",
-        "imagen": "dcbigskater.jpg",
-        "precio": 299.99,
-        "categorias": [
-            "DC",
-            "Mujer"
-        ],
-        "stock": [
-            {
-                "id": 5,
-                "talle": 46.0,
-                "cantidad": 5
-            }
-        ]
+      "id": "3",
+      "nombre": "DC Big Skater",
+      "descripcion": "Para ese fan que le encanta quemar zapas caras con la lija del board",
+      "imagen": "dcbigskater.jpg",
+      "precio": 299.99,
+      "categorias": [
+        "DC",
+        "Mujer"
+      ],
+      "stock": [
+        {
+          "id": 5,
+          "talle": 46,
+          "cantidad": 5
+        }
+      ]
     },
     {
-        "id": 5,
-        "nombre": "Converse All Star",
-        "descripcion": "El clásico de siempre, nunca pasa de moda",
-        "imagen": "allstar.jpg",
-        "precio": 79.99,
-        "categorias": [
-            "Converse",
-            "Casual"
-        ],
-        "stock": [
-            {
-                "id": 8,
-                "talle": 38.0,
-                "cantidad": 12
-            },
-            {
-                "id": 9,
-                "talle": 40.0,
-                "cantidad": 6
-            }
-        ]
+      "id": "5",
+      "nombre": "Converse All Star",
+      "descripcion": "El clásico de siempre, nunca pasa de moda",
+      "imagen": "allstar.jpg",
+      "precio": 79.99,
+      "categorias": [
+        "Converse",
+        "Casual"
+      ],
+      "stock": [
+        {
+          "id": 8,
+          "talle": 38,
+          "cantidad": 12
+        },
+        {
+          "id": 9,
+          "talle": 40,
+          "cantidad": 6
+        }
+      ]
     },
     {
-        "id": 1,
-        "nombre": "Adidas JumpCrazy",
-        "descripcion": "Modo rana all day",
-        "imagen": "jumpcrazy.jpg",
-        "precio": 99.99,
-        "categorias": [
-            "Adidas",
-            "Hombre"
-        ],
-        "stock": [
-            {
-                "id": 1,
-                "talle": 40.0,
-                "cantidad": 3
-            },
-            {
-                "id": 2,
-                "talle": 42.0,
-                "cantidad": 10
-            },
-            {
-                "id": 3,
-                "talle": 37.0,
-                "cantidad": 1
-            }
-        ]
+      "id": "1",
+      "nombre": "Adidas JumpCrazy",
+      "descripcion": "Modo rana all day",
+      "imagen": "jumpcrazy.jpg",
+      "precio": 99.99,
+      "categorias": [
+        "Adidas",
+        "Hombre"
+      ],
+      "stock": [
+        {
+          "id": 1,
+          "talle": 40,
+          "cantidad": 3
+        },
+        {
+          "id": 2,
+          "talle": 42,
+          "cantidad": 10
+        },
+        {
+          "id": 3,
+          "talle": 37,
+          "cantidad": 1
+        }
+      ]
     },
     {
-        "id": 4,
-        "nombre": "Nike Air Max",
-        "descripcion": "Comodidad y estilo para todos",
-        "imagen": "airmax.jpg",
-        "precio": 149.99,
-        "categorias": [
-            "Adidas",
-            "Running"
-        ],
-        "stock": [
-            {
-                "id": 6,
-                "talle": 41.0,
-                "cantidad": 8
-            },
-            {
-                "id": 7,
-                "talle": 43.0,
-                "cantidad": 5
-            }
-        ]
+      "id": "4",
+      "nombre": "Nike Air Max",
+      "descripcion": "Comodidad y estilo para todos",
+      "imagen": "airmax.jpg",
+      "precio": 149.99,
+      "categorias": [
+        "Adidas",
+        "Running"
+      ],
+      "stock": [
+        {
+          "id": 6,
+          "talle": 41,
+          "cantidad": 8
+        },
+        {
+          "id": 7,
+          "talle": 43,
+          "cantidad": 5
+        }
+      ]
     }
-]
-
+  ]
 }

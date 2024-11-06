@@ -1,4 +1,5 @@
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSession from '../hook/useSession';
@@ -7,6 +8,8 @@ export const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    // TODO
+    const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({ email: '', password: '', confirmPassword: '' });
     const [loading, setLoading] = useState(false);
 
@@ -16,45 +19,47 @@ export const Register = () => {
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const handleSubmit = (e) => {
-    e.preventDefault();
-    let valid = true;
-    let newErrors = { email: '', password: '', confirmPassword: '' };
+        e.preventDefault();
+        let valid = true;
+        let newErrors = { email: '', password: '', confirmPassword: '' };
 
-    if (!email) {
-        newErrors.email = 'El email no puede estar vacío';
-        valid = false;
-    } else if (!validateEmail(email)) {
-        newErrors.email = 'El email no tiene un formato válido';
-        valid = false;
-    }
-
-    if (!password) {
-        newErrors.password = 'La contraseña no puede estar vacía';
-        valid = false;
-    } else if (password.length < 6) {
-        newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
-        valid = false;
-    }
-
-    if (password !== confirmPassword) {
-        newErrors.confirmPassword = 'Las contraseñas no coinciden';
-        valid = false;
-    }
-
-    setErrors(newErrors);
-
-    if (valid) {
-        setLoading(true);
-        register(email, password).then((registerSuccess) => {
-        setLoading(false);
-        if (registerSuccess) {
-            navigate('/');
-        } else {
-            setErrors({ ...errors, email: 'El correo ya está registrado' });
+        if (!email) {
+            newErrors.email = 'El email no puede estar vacío';
+            valid = false;
+        } else if (!validateEmail(email)) {
+            newErrors.email = 'El email no tiene un formato válido';
+            valid = false;
         }
-        });
-    }
-};
+
+        if (!password) {
+            newErrors.password = 'La contraseña no puede estar vacía';
+            valid = false;
+        } else if (password.length < 6) {
+            newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+            valid = false;
+        }
+
+        if (password !== confirmPassword) {
+            newErrors.confirmPassword = 'Las contraseñas no coinciden';
+            valid = false;
+        }
+
+        setErrors(newErrors);
+
+        if (valid) {
+            setLoading(true);
+            register(email, password).then((registerSuccess) => {
+                setLoading(false);
+                if (registerSuccess) {
+                    navigate('/');
+                } else {
+                    setErrors({ ...errors, email: 'El correo ya está registrado' });
+                }
+            });
+        }
+    };
+
+const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
 return (
     <Box
@@ -102,7 +107,6 @@ return (
             />
             <TextField
             label="Contraseña"
-            type="password"
             fullWidth
             margin="normal"
             variant="outlined"
@@ -111,9 +115,10 @@ return (
             error={!!errors.password}
             helperText={errors.password}
             />
+        
             <TextField
             label="Confirmar Contraseña"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             margin="normal"
             variant="outlined"
@@ -122,6 +127,8 @@ return (
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword}
             />
+            </Box>
+            
             <Box sx={{ mt: 3 }}>
                 <Button
                     type="submit"
@@ -146,6 +153,5 @@ return (
                     </Button>
             </Box>
         </Box>
-    </Box>
 );
 };
