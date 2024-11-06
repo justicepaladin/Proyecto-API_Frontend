@@ -15,7 +15,7 @@ const useSession = () => {
         try {
             // TODO
             // TENGO QUE ARREGLAR ESTO - MATI
-            const response = await fetch('http://localhost:5173/usuarios', {
+            const response = await fetch('http://localhost:3001/usuarios', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
