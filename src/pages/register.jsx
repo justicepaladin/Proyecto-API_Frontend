@@ -8,7 +8,11 @@ export const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    // TODO
+    const [usuario, setUsuario] = useState('');
+    const [fecha_nacimiento, setFecha_Nacimiento] = useState('');
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({ email: '', password: '', confirmPassword: '' });
     const [loading, setLoading] = useState(false);
@@ -48,10 +52,10 @@ export const Register = () => {
 
         if (valid) {
             setLoading(true);
-            register(email, password).then((registerSuccess) => {
+            register(email, password, usuario, fecha_nacimiento, nombre, apellido).then((registerSuccess) => {
                 setLoading(false);
                 if (registerSuccess) {
-                    navigate('/');
+                    navigate('/login');
                 } else {
                     setErrors({ ...errors, email: 'El correo ya está registrado' });
                 }
@@ -107,6 +111,7 @@ return (
             />
             <TextField
             label="Contraseña"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             margin="normal"
             variant="outlined"
