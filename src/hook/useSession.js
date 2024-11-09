@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login as apiLogin } from '../api/session';
+import { login as apiLogin , register as apiRegister} from '../api/session';
 import { cleanSession, loginSuccess } from '../store/sessionReducer';
 import useNotification from './useNotification';
 
@@ -11,18 +11,9 @@ const useSession = () => {
     const navigate = useNavigate();
     const { showNotification } = useNotification()
 
-    const register = async (email, password) => {
+    const register = async (email, password, usuario, fecha_nacimiento, nombre, apellido) => {
         try {
-            // TODO
-            // TENGO QUE ARREGLAR ESTO - MATI
-            const response = await fetch('http://localhost:3001/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-    
+            const response = await apiRegister(email, password, usuario, fecha_nacimiento, nombre, apellido)    
             if (response.ok) {
                 showNotification('Registro exitoso', 'success'); // Notificación de éxito
                 return true;
