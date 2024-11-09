@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { login as apiLogin , register as apiRegister} from '../api/session';
+import { login as apiLogin, register as apiRegister } from '../api/session';
 import { cleanSession, loginSuccess } from '../store/sessionReducer';
 import useNotification from './useNotification';
 
@@ -8,12 +7,11 @@ const useSession = () => {
     let success = false
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { showNotification } = useNotification()
 
     const register = async (email, password, usuario, fecha_nacimiento, nombre, apellido) => {
         try {
-            const response = await apiRegister(email, password, usuario, fecha_nacimiento, nombre, apellido)    
+            const response = await apiRegister(email, password, usuario, fecha_nacimiento, nombre, apellido)
             if (response.ok) {
                 showNotification('Registro exitoso', 'success'); // Notificación de éxito
                 return true;
@@ -42,7 +40,6 @@ const useSession = () => {
 
             const { data } = response
             dispatch(loginSuccess({ jwtToken: data.jwtToken }));
-            localStorage.setItem("JWT", data.jwtToken)
             success = true
         } catch (error) {
             console.log(error)
@@ -54,7 +51,12 @@ const useSession = () => {
         return success
     }
 
-    return { login, register };
+    const getToken = () => {
+        const { jwt } = useSelector((state) => state.session)
+        return jwt
+    }
+
+    return { login, register, getToken };
 };
 
 export default useSession;
