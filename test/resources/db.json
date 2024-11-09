@@ -195,12 +195,7 @@
       "id": "4",
       "nombre": "Nike Air Max",
       "descripcion": "Comodidad y estilo para todos",
-      "imagen": "airmax.jpg",
       "precio": 149.99,
-      "categorias": [
-        "Adidas",
-        "Running"
-      ],
       "stock": [
         {
           "id": 6,
@@ -221,9 +216,9 @@
       "precio": 150,
       "stock": [
         {
-          "id": 1731153576762,
+          "id": 1731157275567,
           "talle": "40",
-          "cantidad": "1"
+          "cantidad": "2"
         }
       ]
     }

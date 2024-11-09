@@ -45,9 +45,26 @@ export const ProductDashboard = () => {
         }
     };
 
+    // Cargar los productos y stock de un producto seleccionado
     useEffect(() => {
-        fetchProducts();
-    }, []);
+        const fetchData = async () => {
+            try {
+                const data = await getProducts();
+                setProducts(data);
+
+                // Si se selecciona un producto, cargar su stock
+                if (selectedProduct) {
+                    setStock(selectedProduct.stock || []);
+                }
+            } catch (error) {
+                console.error('Error al obtener los productos:', error);
+                // Manejo de errores
+            }
+        };
+
+        fetchData();
+    }, [selectedProduct]); // Este efecto se ejecuta cuando `selectedProduct` cambia
+    
 
     // Manejo del stock en los modals, descomentar esto si funciona
     const handleStockChange = (index, field, value) => {
@@ -78,18 +95,46 @@ export const ProductDashboard = () => {
     };
 
     // Editar un producto existente
+    // const handleEditProduct = async (updatedProduct) => {
+    //     try {
+    //         const data = await editProduct(updatedProduct);
+    //         setProducts(products.map(p => (p.id === data.id ? data : p)));
+    //         setOpenEditModal(false);
+    //         setSelectedProduct(null);
+    //         setStock([]);
+    //     } catch (error) {
+    //         console.error('Error al editar el producto:', error);
+    //         // Manejar el error
+    //     }
+    // };
+    // Editar un producto existente
     const handleEditProduct = async (updatedProduct) => {
         try {
-            const data = await editProduct(updatedProduct);
+            // Fusionar el stock original con las modificaciones hechas
+            const updatedStock = selectedProduct.stock.map(originalStockItem => {
+                const modifiedStockItem = stock.find(item => item.id === originalStockItem.id);
+                if (modifiedStockItem) {
+                    return { ...originalStockItem, ...modifiedStockItem }; // Actualizar el stock modificado
+                }
+                return originalStockItem; // Mantener el stock original si no se ha modificado
+            });
+
+            // Crear el nuevo producto con el stock actualizado
+            const updatedProductWithStock = { ...updatedProduct, stock: updatedStock };
+
+            // Actualizar el producto con el stock modificado
+            const data = await editProduct(updatedProductWithStock);
             setProducts(products.map(p => (p.id === data.id ? data : p)));
+
             setOpenEditModal(false);
             setSelectedProduct(null);
-            setStock([]);
+            setStock([]);  // Limpiar el estado del stock después de la edición
         } catch (error) {
             console.error('Error al editar el producto:', error);
-            // Manejar el error
+            // Manejo de errores
         }
     };
+    
 
     // Eliminar un producto
     const handleDeleteProduct = async (productId) => {
@@ -107,6 +152,34 @@ export const ProductDashboard = () => {
         setSelectedProductStock(product);
         setStockModalOpen(true);
     };
+
+    // StockForm para los formularios
+    const StockForm = ({ stock, onStockChange, onAddRow, onRemoveRow }) => (
+        <>
+            <h3>Stock</h3>
+            {stock.map((item, index) => (
+                <Box key={item.id} display="flex" alignItems="center" mb={2}>
+                    <TextField
+                        label="Talle"
+                        type="number"
+                        value={item.talle}
+                        onChange={(e) => onStockChange(index, 'talle', e.target.value)}
+                        sx={{ marginRight: 2 }}
+                    />
+                    <TextField
+                        label="Cantidad"
+                        type="number"
+                        value={item.cantidad}
+                        onChange={(e) => onStockChange(index, 'cantidad', e.target.value)}
+                        sx={{ marginRight: 2 }}
+                    />
+                    <Button onClick={() => onRemoveRow(index)} color="error">Eliminar</Button>
+                </Box>
+            ))}
+            <Button onClick={onAddRow} color="primary">Agregar Stock</Button>
+        </>
+    );
+    
 
     return (
         <Container>
@@ -180,27 +253,12 @@ export const ProductDashboard = () => {
                         <TextField label="Descripción" name="descripcion" fullWidth margin="normal" />
                         <TextField label="Precio" name="precio" type="number" fullWidth margin="normal" />
                         {/* Manejo del stock en los modals, descomentar esto si funciona */}
-                        <h3>Stock</h3>
-                        {stock.map((item, index) => (
-                            <Box key={item.id} display="flex" alignItems="center" mb={2}>
-                                <TextField
-                                    label="Talle"
-                                    type="number"
-                                    value={item.talle}
-                                    onChange={(e) => handleStockChange(index, 'talle', e.target.value)}
-                                    sx={{ marginRight: 2 }}
-                                />
-                                <TextField
-                                    label="Cantidad"
-                                    type="number"
-                                    value={item.cantidad}
-                                    onChange={(e) => handleStockChange(index, 'cantidad', e.target.value)}
-                                    sx={{ marginRight: 2 }}
-                                />
-                                <Button onClick={() => removeStockRow(index)} color="error">Eliminar</Button>
-                            </Box>
-                        ))}
-                        <Button onClick={addStockRow} color="primary">Agregar Stock</Button>
+                        <StockForm 
+                                stock={stock} 
+                                onStockChange={handleStockChange} 
+                                onAddRow={addStockRow} 
+                                onRemoveRow={removeStockRow} 
+                        />
                         <Button type="submit" variant="contained">
                             Guardar
                         </Button>
@@ -239,27 +297,12 @@ export const ProductDashboard = () => {
                             <TextField label="Precio" name="precio" type="number" fullWidth margin="normal" defaultValue={selectedProduct.precio} />
                             {/* <TextField label="Stock" name="stock" type="number" fullWidth margin="normal" defaultValue={selectedProduct.stock} /> */}
                             {/* Manejo del stock en los modals, descomentar esto si funciona */}
-                            <h3>Stock</h3>
-                            {stock.map((item, index) => (
-                                <Box key={item.id} display="flex" alignItems="center" mb={2}>
-                                    <TextField
-                                        label="Talle"
-                                        type="number"
-                                        value={item.talle}
-                                        onChange={(e) => handleStockChange(index, 'talle', e.target.value)}
-                                        sx={{ marginRight: 2 }}
-                                    />
-                                    <TextField
-                                        label="Cantidad"
-                                        type="number"
-                                        value={item.cantidad}
-                                        onChange={(e) => handleStockChange(index, 'cantidad', e.target.value)}
-                                        sx={{ marginRight: 2 }}
-                                    />
-                                    <Button onClick={() => removeStockRow(index)} color="error">Eliminar</Button>
-                                </Box>
-                            ))}
-                            <Button onClick={addStockRow} color="primary">Agregar Stock</Button>
+                            <StockForm 
+                                stock={stock} 
+                                onStockChange={handleStockChange} 
+                                onAddRow={addStockRow} 
+                                onRemoveRow={removeStockRow} 
+                            />
                             <Button type="submit" variant="contained">
                                 Guardar
                             </Button>
