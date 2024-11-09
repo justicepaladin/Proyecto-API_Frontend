@@ -108,22 +108,17 @@
       "id": "6",
       "nombre": "Reebok Classic",
       "descripcion": "El modelo retro que sigue vigente",
-      "imagen": "reebokclassic.jpg",
       "precio": 89.99,
-      "categorias": [
-        "Reebok",
-        "Skateboarding"
-      ],
       "stock": [
         {
-          "id": 10,
-          "talle": 39,
-          "cantidad": 15
+          "id": 1731153404146,
+          "talle": "40",
+          "cantidad": "1"
         },
         {
-          "id": 11,
-          "talle": 44,
-          "cantidad": 7
+          "id": 1731153434320,
+          "talle": "41",
+          "cantidad": "2"
         }
       ]
     },
@@ -216,6 +211,19 @@
           "id": 7,
           "talle": 43,
           "cantidad": 5
+        }
+      ]
+    },
+    {
+      "id": "4b1b",
+      "nombre": "Converse Anashe",
+      "descripcion": "nuevas converse",
+      "precio": 150,
+      "stock": [
+        {
+          "id": 1731153576762,
+          "talle": "40",
+          "cantidad": "1"
         }
       ]
     }
