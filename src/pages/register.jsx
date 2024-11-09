@@ -14,7 +14,7 @@ export const Register = () => {
     const [apellido, setApellido] = useState('');
 
     const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({ email: '', password: '', confirmPassword: '' });
+    const [errors, setErrors] = useState({ nombre: '', apellido: '', usuario: '', fecha_nacimiento: '', email: '', password: '', confirmPassword: '' });
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let valid = true;
-        let newErrors = { email: '', password: '', confirmPassword: '' };
+        let newErrors = { nombre: '', apellido: '', usuario: '', fecha_nacimiento: '', email: '', password: '', confirmPassword: ''};
 
         if (!email) {
             newErrors.email = 'El email no puede estar vacío';
@@ -45,6 +45,26 @@ export const Register = () => {
 
         if (password !== confirmPassword) {
             newErrors.confirmPassword = 'Las contraseñas no coinciden';
+            valid = false;
+        }
+
+        if (!usuario) {
+            newErrors.usuario = 'El usuario no puede estar vacío';
+            valid = false;
+        }
+
+        if (!fecha_nacimiento) {
+            newErrors.fecha_nacimiento = 'La fecha de nacimiento no puede estar vacía';
+            valid = false;
+        }
+
+        if (!nombre) {
+            newErrors.nombre = 'El nombre no puede estar vacío';
+            valid = false;
+        }
+
+        if (!apellido) {
+            newErrors.apellido = 'El apellido no puede estar vacío';
             valid = false;
         }
 
@@ -100,37 +120,77 @@ return (
         </Typography>
         <Box component="form" onSubmit={handleSubmit}>
             <TextField
-            label="Email"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={!!errors.email}
-            helperText={errors.email}
+                label="Nombre"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                error={!!errors.nombre}
+                helperText={errors.nombre}
             />
             <TextField
-            label="Contraseña"
-            type={showPassword ? 'text' : 'password'}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={!!errors.password}
-            helperText={errors.password}
+                label="Apellido"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
+                error={!!errors.apellido}
+                helperText={errors.appelido}
+            />
+            <TextField
+                label="Fecha Nacimiento"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={fecha_nacimiento}
+                onChange={(e) => setFecha_Nacimiento(e.target.value)}
+                error={!!errors.fecha_nacimiento}
+                helperText={errors.fecha_nacimiento}
+            />
+            <TextField
+                label="Usuario"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+                error={!!errors.usuario}
+                helperText={errors.usuario}
+            />
+            <TextField
+                label="Email"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!errors.email}
+                helperText={errors.email}
+            />
+            <TextField
+                label="Contraseña"
+                type={showPassword ? 'text' : 'password'}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                error={!!errors.password}
+                helperText={errors.password}
             />
         
             <TextField
-            label="Confirmar Contraseña"
-            type={showPassword ? 'text' : 'password'}
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword}
+                label="Confirmar Contraseña"
+                type={showPassword ? 'text' : 'password'}
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword}
             />
             </Box>
             
@@ -146,7 +206,7 @@ return (
                     borderRadius: 2,
                     }}
                     disabled={loading}
-                    endIcon={loading && <CircularProgress size={24} color="inherit" />}
+                    endIcon={loading && <CircularProgress size={24} color="inherit" /*onClick={() => } */ />}
                 >
                     {loading ? 'Registrando...' : 'Registrarse'}
                 </Button>
