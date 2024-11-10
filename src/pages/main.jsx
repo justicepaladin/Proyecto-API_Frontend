@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { LOCAL_STORAGE_JWT } from '../constants'
 import useNotification from '../hook/useNotification'
 import { Products } from '../Products/Products'
 import { CartPage } from './cart'

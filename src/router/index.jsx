@@ -4,6 +4,7 @@ import { Login } from '../pages/login'
 import { Main } from '../pages/main'
 import { Register } from '../pages/register'
 import { ProductDashboard } from '../pages/admin'
+import { CartPage } from '../pages/cart'
 
 export default createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export default createBrowserRouter([
   {
     path: "/admin",
     element: <ProductDashboard />,
+  },
+  {
+    path: "/carrito",
+    element: <CartPage/>
   }
 ])

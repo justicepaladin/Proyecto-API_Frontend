@@ -4,6 +4,7 @@ import notificationReducer from "./notificationReducer";
 import sessionReducer from "./sessionReducer";
 import storage from 'redux-persist/lib/storage';
 import persistStore from "redux-persist/es/persistStore";
+import carritoReducer from "./carritoReducer";
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    carrito: carritoReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -29,7 +29,7 @@ export const Nav = () => {
             <a href="a">
                 <FiHeart className="nav-icons" />
             </a>
-            <a href="a">
+            <a onClick={e => navigate("/carrito")}>
                 <AiOutlineShoppingCart className="nav-icons" />
             </a>
             <a onClick={(e) => navigate("/profile")}>

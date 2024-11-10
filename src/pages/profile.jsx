@@ -20,6 +20,7 @@ import { getProfile } from '../services/profileService'
 import { getFacturas } from '../services/facturaService'
 import { Preview, Visibility } from '@mui/icons-material'
 import { FaturaDetails } from '../components/FacturaDetails'
+import { Nav } from '../Navigation/Nav'
 
 /**
  *
@@ -82,6 +83,7 @@ export const PerfilPage = () => {
   }, [])
   return (
     <>
+      <Nav></Nav>
       <Container
         sx={{
           backgroundColor: 'whitesmoke',
@@ -111,9 +113,7 @@ export const PerfilPage = () => {
           <p>Email: {profileData.email}</p>
         </Container>
 
-        <IconButton title="Editar informacion">
-          <CreateIcon />
-        </IconButton>
+    
       </Container>
 
       <Container sx={{ marginTop: '2rem' }}>
@@ -122,7 +122,6 @@ export const PerfilPage = () => {
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell>Vendedor</TableCell>
                 <TableCell>Fecha</TableCell>
                 <TableCell>Monto</TableCell>
                 <TableCell></TableCell>
@@ -133,7 +132,6 @@ export const PerfilPage = () => {
                 return (
                   <TableRow key={factura.id}>
                     <TableCell>{factura.id}</TableCell>
-                    <TableCell>{factura.vendedor}</TableCell>
                     <TableCell>{factura.fechaCompra}</TableCell>
                     <TableCell>${factura.total}</TableCell>
                     <TableCell>
