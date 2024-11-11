@@ -10,6 +10,9 @@ import {
 import { getProducts } from '../services/productoService'
 import { useNavigate } from 'react-router-dom'
 
+
+
+
 export const Products = () => {
 
 
@@ -94,6 +97,32 @@ export const Products = () => {
     
   }
 
+  const ProductoMiniView = ({producto}) => {
+    return <section className="card" key={producto.id} onClick={e => handleClickProducto(producto)}>
+    <img
+      src={producto.imagen}
+      alt={producto.nombre}
+      style={{height: "100px", width: "100%", objectFit: "contain"}}
+      className="card-img"
+    />
+    <div className="card-details">
+      <h3 className="card-title">{producto.nombre}</h3>
+      <section className="card-reviews">
+        {[...Array(producto.rating)].map((_, index) => (
+          <AiFillStar key={index} className="ratings-star" />
+        ))}
+        <span className="total-reviews"> {producto.rating}</span>
+      </section>
+      <section className="card-price">
+        <div className="price">
+          <del>${producto.precio + 100}</del> 
+          ${producto.precio}
+        </div>
+      </section>
+    </div>
+  </section>
+  }
+
   return (
     <>
       <Nav />
@@ -118,28 +147,7 @@ export const Products = () => {
         <h2>Vistos Recientemente</h2>
         <section className="card-container">
           {productosVistos.map((producto) => (
-            <section className="card" key={producto.id} onClick={e => handleClickProducto(producto)}>
-              <img
-                src={producto.imagen}
-                alt={producto.nombre}
-                className="card-img"
-              />
-              <div className="card-details">
-                <h3 className="card-title">{producto.nombre}</h3>
-                <section className="card-reviews">
-                  {[...Array(producto.rating)].map((_, index) => (
-                    <AiFillStar key={index} className="ratings-star" />
-                  ))}
-                  <span className="total-reviews"> {producto.rating}</span>
-                </section>
-                <section className="card-price">
-                  <div className="price">
-                    <del>${producto.precio + 100}</del> 
-                    ${producto.precio}
-                  </div>
-                </section>
-              </div>
-            </section>
+            <ProductoMiniView producto={producto}/>
           ))}
         </section>
       </section>
@@ -151,33 +159,7 @@ export const Products = () => {
             <h2 className="marca-title">{marca}</h2>
             <section className="marca-productos">
               {productosPorMarca[marca].map((producto) => (
-                <section
-                  className="card"
-                  key={producto.id}
-                  onClick={() => handleClickProducto(producto)} // Agregar producto a los vistos al hacer clic
-                >
-                  <img
-                    src={producto.imagen}
-                    alt={producto.nombre}
-                    className="card-img"
-                  />
-                  <div className="card-details">
-                    <h3 className="card-title">{producto.nombre}</h3>
-                    <section className="card-reviews">
-                      {[...Array(producto.rating)].map((_, index) => (
-                        <AiFillStar key={index} className="ratings-star" />
-                      ))}
-                      <span className="total-reviews"> {producto.rating}</span>
-                    </section>
-                    <section className="card-price">
-                      <div className="price">
-                        <del>${producto.precio + 100}</del> 
-                        ${producto.precio}
-                      </div>
-                      
-                    </section>
-                  </div>
-                </section>
+                <ProductoMiniView producto={producto}/>
               ))}
             </section>
           </div>

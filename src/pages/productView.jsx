@@ -33,7 +33,7 @@ export const ProductView = () => {
             precio: producto?.precio,
             cantidad: 1
         }
-        let response = dispatch(agregarItem(productoCarrito))
+        dispatch(agregarItem(productoCarrito))
         showNotification("Agregado al carrito correctamente", 'success')
     }
 
@@ -54,12 +54,13 @@ export const ProductView = () => {
             <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
             <Card>
             <Grid container spacing={2}>
-                <Grid xs={12} md={4}>
+                <Grid xs={12} md={4} size={12} sx={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                
                 <CardMedia
                     component="img"
                     image={producto?.imagen}
                     alt={producto?.nombre}
-                    sx={{ height: "100%", objectFit: "cover", borderRadius: 1 }}
+                    sx={{ height: "300px", width: "100%", objectFit: "contain", borderRadius: 1, objectPosition: "center"}}
                 />
                 </Grid>
 
