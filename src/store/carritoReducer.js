@@ -16,8 +16,6 @@ export const carritoSlice = createSlice({
         },
         modificarCantidad:(state, action) => {
             let modItem = action.payload
-
-            
             state.items = state.items.map(item => item.stockProductoId == modItem.stockProductoId ? modItem : item)
             
         },

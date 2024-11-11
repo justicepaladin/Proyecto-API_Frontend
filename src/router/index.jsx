@@ -5,6 +5,7 @@ import { Main } from '../pages/main'
 import { Register } from '../pages/register'
 import { ProductDashboard } from '../pages/admin'
 import { CartPage } from '../pages/cart'
+import { ProductView } from '../pages/productView'
 
 export default createBrowserRouter([
   {
@@ -30,5 +31,9 @@ export default createBrowserRouter([
   {
     path: "/carrito",
     element: <CartPage/>
+  },
+  {
+    path: "/product/:id",
+    element: <ProductView/>
   }
 ])

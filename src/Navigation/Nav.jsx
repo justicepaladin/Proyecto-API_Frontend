@@ -1,7 +1,7 @@
 import "./Nav.css"; // Estilizado del Nav
 //icons
 import { AiOutlineShoppingCart, AiOutlineUserAdd, AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiHome } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 
 import { cleanSession, loginSuccess } from '../store/sessionReducer';
@@ -18,6 +18,9 @@ export const Nav = () => {
     }
   return (
     <nav>
+        <a onClick={e => navigate("/")}>
+                <FiHome className="nav-icons" />
+            </a>
         <div className="nav-container">
             <input 
                 type="text" 

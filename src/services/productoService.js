@@ -64,7 +64,7 @@ export async function getProductById(productId)
 {
     try 
     {
-        const response = await API_CLIENT().get(`/productos/${productId}`);
+        const response = await API_CLIENT().get(`/producto/${productId}`);
         return response.data;
     } 
     catch (error) 
