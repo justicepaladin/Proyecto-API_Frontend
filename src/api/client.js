@@ -1,5 +1,4 @@
 import axios from 'axios';
-import useSession from '../hook/useSession';
 
 
 export function API_CLIENT() {
@@ -18,7 +17,7 @@ export function API_CLIENT() {
     }
 
 
-    instance.defaults.headers.post['Content-Type'] = 'application/json'
+    instance.defaults.headers.common['Content-Type'] = 'application/json'
 
     instance.interceptors.response.use((response) => {
         response.ok = response.status === 200
