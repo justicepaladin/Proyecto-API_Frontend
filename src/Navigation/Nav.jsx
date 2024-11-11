@@ -2,13 +2,15 @@ import "./Nav.css"; // Estilizado del Nav
 //icons
 import { AiOutlineShoppingCart, AiOutlineUserAdd, AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
 import { FiHeart, FiHome } from "react-icons/fi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { cleanSession, loginSuccess } from '../store/sessionReducer';
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@mui/material";
 
 export const Nav = () => {
     const dispatch = useDispatch();
+    const carrito = useSelector(state => state.carrito.items)
     const navigate = useNavigate()
     const handleLogout = () => {
         console.log("Cerrar Sesión");
@@ -33,7 +35,9 @@ export const Nav = () => {
                 <FiHeart className="nav-icons" />
             </a>
             <a onClick={e => navigate("/carrito")}>
+            <Badge badgeContent={carrito?.length} color="primary" overlap="circular">
                 <AiOutlineShoppingCart className="nav-icons" />
+            </Badge>
             </a>
             <a onClick={(e) => navigate("/profile")}>
                 <AiOutlineUser className="nav-icons" />

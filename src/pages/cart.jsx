@@ -1,7 +1,7 @@
 import { Backdrop, Box, Button, Card, CircularProgress, Modal, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { agregarItem } from '../store/carritoReducer'
+import { agregarItem, purgeItems } from '../store/carritoReducer'
 import { ItemCarrito } from '../components/ItemCarrito'
 import { efectuarCompra } from '../services/facturaService'
 import { Nav } from '../Navigation/Nav'
@@ -27,18 +27,14 @@ export const CartPage = () => {
   }, [])
 
 
-  const handleTestAgregarItem = () => {
-    dispatch(agregarItem(exampleItem))
-  }
-
-
   const handleDoCheckout = async () => {
     setLoading(true)
     let response = await efectuarCompra(carrito)
-
+    
     setLoading(false)
     if(response.status == 201){
       setCheckoutStatus("Compra realizada con exito!")
+      dispatch(purgeItems())
     }else{
       setCheckoutStatus("Algo salio super mal....")
     }
@@ -48,7 +44,7 @@ export const CartPage = () => {
     <>
 
       <Nav />
-      <Button onClick={handleTestAgregarItem}>Test agregar producto</Button>
+
       <Typography variant='h4'>Tu carrito</Typography>
       {carrito?.map((item,idx) => 
         <ItemCarrito key={idx} item={item}/>

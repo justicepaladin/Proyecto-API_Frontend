@@ -33,7 +33,7 @@ export const ProductView = () => {
             precio: producto?.precio,
             cantidad: 1
         }
-        dispatch(agregarItem(productoCarrito))
+        let response = dispatch(agregarItem(productoCarrito))
         showNotification("Agregado al carrito correctamente", 'success')
     }
 
