@@ -7,30 +7,15 @@ import {
   listarProductosVistosRecientemente,
   marcarVisto,
 } from '../api/products'
+import { getProducts } from '../services/productoService'
+import { useNavigate } from 'react-router-dom'
 
 export const Products = () => {
-  const productosDestacados = [
-    {
-      id: 1,
-      nombre: 'Zapatilla Air Max',
-      marca: 'Nike',
-      precioOriginal: 300,
-      precioDescuento: 200,
-      imagen: 'https://m.media-amazon.com/images/I/71E75yRwCDL._AC_UY575_.jpg',
-      rating: 4,
-    },
-    {
-      id: 2,
-      nombre: 'Zapatilla UltraBoost',
-      marca: 'Adidas',
-      precioOriginal: 150,
-      precioDescuento: 100,
-      imagen: 'https://m.media-amazon.com/images/I/71E75yRwCDL._AC_UY575_.jpg',
-      rating: 5,
-    },
-    // Agrega más productos con diferentes marcas
-  ]
 
+
+  const [productosDestacados, setProductosDestacados] = useState([])
+  const navigate = useNavigate()
+  
   const productosVistosRecientemente = listarProductosVistosRecientemente(
     0,
     10,
@@ -89,12 +74,25 @@ export const Products = () => {
     setProductosVistos(productosVistos)
   }
 
+
+  const handleFetchProductos = async () =>{
+    getProducts().then(response => setProductosDestacados(response.pageItems))
+  }
+
   // Recuperamos los productos vistos del localStorage al cargar el componente
   useEffect(() => {
+    handleFetchProductos()
     const productosVistos =
       JSON.parse(localStorage.getItem('productosVistos')) || []
     setProductosVistos(productosVistos)
   }, [])
+
+
+  const handleClickProducto = (producto) => {
+    agregarProductoVisto(producto)
+    navigate(`/product/${producto.id}`)
+    
+  }
 
   return (
     <>
@@ -120,7 +118,7 @@ export const Products = () => {
         <h2>Vistos Recientemente</h2>
         <section className="card-container">
           {productosVistos.map((producto) => (
-            <section className="card" key={producto.id}>
+            <section className="card" key={producto.id} onClick={e => handleClickProducto(producto)}>
               <img
                 src={producto.imagen}
                 alt={producto.nombre}
@@ -136,11 +134,8 @@ export const Products = () => {
                 </section>
                 <section className="card-price">
                   <div className="price">
-                    <del>${producto.precioOriginal}</del> $
-                    {producto.precioDescuento}
-                  </div>
-                  <div className="bag">
-                    <IoBagAddSharp className="bag-icon" />
+                    <del>${producto.precio + 100}</del> 
+                    ${producto.precio}
                   </div>
                 </section>
               </div>
@@ -159,7 +154,7 @@ export const Products = () => {
                 <section
                   className="card"
                   key={producto.id}
-                  onClick={() => agregarProductoVisto(producto)} // Agregar producto a los vistos al hacer clic
+                  onClick={() => handleClickProducto(producto)} // Agregar producto a los vistos al hacer clic
                 >
                   <img
                     src={producto.imagen}
@@ -176,12 +171,10 @@ export const Products = () => {
                     </section>
                     <section className="card-price">
                       <div className="price">
-                        <del>${producto.precioOriginal}</del> $
-                        {producto.precioDescuento}
+                        <del>${producto.precio + 100}</del> 
+                        ${producto.precio}
                       </div>
-                      <div className="bag">
-                        <IoBagAddSharp className="bag-icon" />
-                      </div>
+                      
                     </section>
                   </div>
                 </section>

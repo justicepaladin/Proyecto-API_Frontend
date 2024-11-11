@@ -26,6 +26,7 @@ export const ProductView = () => {
     const handleAgregarCarrito = () => {
 
         const productoCarrito = {
+            stockProductoId: stockSeleccionado.id,
             nombre: producto?.nombre,
             talle: stockSeleccionado?.talle,
             imagen: producto?.imagen,

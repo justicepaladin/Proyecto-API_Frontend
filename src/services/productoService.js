@@ -9,7 +9,7 @@ export async function getProducts()
 {
     try 
     {
-        const response = await API_CLIENT().get(`/productos`);
+        const response = await API_CLIENT().get(`/v1/producto?page=0&rowsPerPage=10`);
         return response.data;
     } 
     catch (error) 
