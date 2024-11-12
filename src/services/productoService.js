@@ -1,29 +1,18 @@
 import { API_CLIENT } from "../api/client";
 
 
-export async function getProducts(page, filtros) {
+export async function getProducts(page, filtros, rowsPerPage) {
     try {
         // Crear un objeto URLSearchParams con paginación
         const queryParams = new URLSearchParams({
             page: page,
-            rowsPerPage: 10,
+            rowsPerPage: rowsPerPage ?? 10,
         });
 
         filtros?.map(filtro => {
             queryParams.append("categorias", filtro.id)
         })
 
-        //   // Agregar los filtros al queryParams
-        //   Object.keys(filtros).forEach((key) => {
-        //     const value = filtros[key];
-        //     if (Array.isArray(value)) {
-        //       // Si el filtro es un array, agrega cada valor individualmente
-        //       value.forEach((item) => queryParams.append(key, item));
-        //     } else {
-        //       // Si no es un array, agregarlo directamente
-        //       queryParams.append(key, value);
-        //     }
-        //   });
 
         // Convertir los parámetros en una cadena de consulta
         const queryString = queryParams.toString();

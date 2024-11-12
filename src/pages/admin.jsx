@@ -42,7 +42,7 @@ export const ProductDashboard = () => {
     // Obtener la lista de productos usando el servicio
     const fetchProducts = async () => {
         try {
-            const data = await getProducts();
+            const data = await getProducts(0, [], 100);
             setProducts(data);
         } catch (error) {
             handleError('Error al obtener los productos: ' + error.message);
@@ -53,7 +53,7 @@ export const ProductDashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getProducts();
+                const data = await getProducts(0, [], 100);
                 setProducts(data.pageItems);
 
                 // Si se selecciona un producto, cargar su stock
