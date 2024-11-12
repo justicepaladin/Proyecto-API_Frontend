@@ -134,3 +134,7 @@ export const listaProductosDestacados = (page, rowsPerPage) => {
     return API_CLIENT().get(`v1/producto/destacados?page=${page}&rowsPerPage=${rowsPerPage}`)
         .then(response => response.data)
 }
+
+export const darQuitarFav = (idProducto) => {
+    return API_CLIENT().post(`v1/producto/${idProducto}/favorito`)
+}
