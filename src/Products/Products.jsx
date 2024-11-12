@@ -10,19 +10,11 @@ import {
   Typography,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { AiFillStar } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom'
-import CarruselProductosVistos from '../components/CarruselProductosVistos'
 import CarruselProductosDestacados from '../components/CarruselProductosDestacados'
+import CarruselProductosVistos from '../components/CarruselProductosVistos'
 import { ProductoMiniView } from '../components/ProductosMiniView'
-import { PRODUCTOS_VISTOS_ROWS_PER_PAGE } from '../constants'
 import { Nav } from '../Navigation/Nav'
-import {
-  getCategorias,
-  getProducts,
-  marcarVisto,
-  listarProductosVistosRecientemente,
-} from '../services/productoService'
+import { getCategorias, getProducts } from '../services/productoService'
 import './Products.css'
 
 export const Products = () => {
@@ -31,16 +23,6 @@ export const Products = () => {
   const [lastPage, setLastPage] = useState(0)
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
   const [tagsDisponibles, setTagDispoibles] = useState([])
-
-  const [productosVistos, setProductosVistos] = useState([])
-  const [pageProductosVistos, setPageProductosVistos] = useState(0)
-
-  const navigate = useNavigate()
-
-  // Función para agregar un producto a la lista de "Vistos Recientemente"
-  const agregarProductoVisto = (producto) => {
-    marcarVisto(producto.id)
-  }
 
   const handleFetchProductos = async (page, tags) => {
     getProducts(page, tags).then((response) => {
@@ -54,15 +36,6 @@ export const Products = () => {
     })
   }
 
-  const handleFetchProductosVistos = (page) => {
-    listarProductosVistosRecientemente(
-      page,
-      PRODUCTOS_VISTOS_ROWS_PER_PAGE,
-    ).then((productos) => {
-      setProductosVistos(productos.pageItems)
-    })
-  }
-
   const handlePageChange = (value) => {
     let pageNew = page + value
     setPage(pageNew)
@@ -72,13 +45,7 @@ export const Products = () => {
   useEffect(() => {
     handleGetCategorias()
     handleFetchProductos(page)
-    handleFetchProductosVistos(pageProductosVistos)
   }, [])
-
-  const handleClickProducto = (producto) => {
-    agregarProductoVisto(producto)
-    navigate(`/product/${producto.id}`)
-  }
 
   const handleGetCategorias = async () => {
     let response = await getCategorias()
@@ -93,11 +60,6 @@ export const Products = () => {
     setTagsSeleccionados(newSelectedTags)
     handleFetchProductos(0, newSelectedTags)
   }
-
-  const nextPageProductosVistos = () =>
-    setPageProductosVistos((prevPage) => prevPage + 1)
-  const previousPageProductosVistos = () =>
-    setPageProductosVistos((prevPage) => Math.max(prevPage - 1, 0))
 
   return (
     <>

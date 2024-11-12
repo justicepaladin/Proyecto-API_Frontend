@@ -1,7 +1,20 @@
 import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
+import { marcarVisto } from '../services/productoService'
 
 export const ProductoMiniView = ({ producto }) => {
+  const navigate = useNavigate()
+
+  const agregarProductoVisto = (producto) => {
+    marcarVisto(producto.id)
+  }
+
+  const handleClickProducto = (producto) => {
+    agregarProductoVisto(producto)
+    navigate(`/product/${producto.id}`)
+  }
+
   return (
     <section
       className="card"
