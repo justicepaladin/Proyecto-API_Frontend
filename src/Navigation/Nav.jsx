@@ -34,9 +34,7 @@ export const Nav = () => {
         <input type="text" className="search-input" placeholder="Buscar" />
       </div>
       <div className="profile-container">
-        <a href="a">
-          <FiHeart className="nav-icons" />
-        </a>
+        
         <a onClick={(e) => navigate('/carrito')}>
           <Badge
             badgeContent={carrito?.length}
