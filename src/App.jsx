@@ -1,10 +1,11 @@
 import { RouterProvider } from 'react-router-dom'
 import './App.css'
 import Notification from './components/Notification'
-import router from './router/index.jsx'
+import Router from './router/index.jsx'
 
 
 function App() {
+    const router = Router();
     return(
         <>
             <Notification />
