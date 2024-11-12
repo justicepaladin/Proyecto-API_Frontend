@@ -16,6 +16,7 @@ import { Badge } from '@mui/material'
 export const Nav = () => {
   const dispatch = useDispatch()
   const carrito = useSelector((state) => state.carrito.items)
+  const admin = useSelector(state => state.session.admin)
   const navigate = useNavigate()
   const handleLogout = () => {
     dispatch(cleanSession({}))
@@ -27,9 +28,14 @@ export const Nav = () => {
       <a onClick={(e) => navigate('/')}>
         <FiHome className="nav-icons" />
       </a>
-      <a onClick={(e) => navigate('/admin')}>
-        <FiLock className="nav-icons" />
-      </a>
+
+      {admin ? 
+        <a onClick={(e) => navigate('/admin')}>
+          <FiLock className="nav-icons" />
+        </a>
+      :
+        <></>
+      }
       <div className="nav-container">
         <input type="text" className="search-input" placeholder="Buscar" />
       </div>

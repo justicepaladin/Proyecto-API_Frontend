@@ -39,7 +39,8 @@ const useSession = () => {
             }
 
             const { data } = response
-            dispatch(loginSuccess({ jwtToken: data.jwtToken }));
+            console.log(data)
+            dispatch(loginSuccess({ jwtToken: data.jwtToken, admin: data.admin ?? false }));
             success = true
         } catch (error) {
             const { message } = error.response.data

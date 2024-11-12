@@ -4,9 +4,10 @@ export const sessionSlice = createSlice({
     name: 'session',
     initialState: {
         jwt: null,
+        admin: false,
     },
     reducers: {
-        loginSuccess: (state, { payload: { jwtToken } }) => ({ ...state, jwt: jwtToken }),
+        loginSuccess: (state, { payload: { jwtToken, admin } }) => ({ ...state, jwt: jwtToken, admin: admin }),
         cleanSession: (state) => ({ ...state, jwt: null })
     },
 })
