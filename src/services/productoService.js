@@ -121,3 +121,17 @@ export async function getProductById(productId) {
         throw error;
     }
 }
+
+export const listarProductosVistosRecientemente = (page, rowsPerPage) => {
+    return API_CLIENT().get(`v1/producto/recientes?page=${page}&rowsPerPage=${rowsPerPage}`)
+        .then(response => response.data)
+}
+
+export const marcarVisto = (idProducto) => {
+    return API_CLIENT().post(`v1/producto/${idProducto}/visto`)
+}
+
+export const listaProductosDestacados = (page, rowsPerPage) => {
+    return API_CLIENT().get(`v1/producto/destacados?page=${page}&rowsPerPage=${rowsPerPage}`)
+        .then(response => response.data)
+}
