@@ -179,12 +179,21 @@ export const Register = () => {
             value={apellido}
             onChange={(e) => setApellido(e.target.value)}
             error={!!errors.apellido}
-            helperText={errors.appelido}
+            helperText={errors.apellido}
           />
           <DatePicker
             label="Fecha de Nacimiento"
             value={fechaNacimiento}
             onChange={(newValue) => setFechaNacimiento(newValue)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                margin="normal"
+                error={!!errors.fechaNacimiento}
+                helperText={errors.fechaNacimiento}
+              />
+            )}
           />
           <TextField
             label="Usuario"
