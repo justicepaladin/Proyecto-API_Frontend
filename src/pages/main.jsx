@@ -15,6 +15,7 @@ export const Main = () => {
     if (import.meta.env.VITE_AUTH_ENABLED === 'true') {
       return
     }
+
     if (!jwt) {
       showNotification('La sesión a expirado')
       return navigate('/login')

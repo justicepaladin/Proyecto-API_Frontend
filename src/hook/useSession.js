@@ -42,7 +42,6 @@ const useSession = () => {
             dispatch(loginSuccess({ jwtToken: data.jwtToken }));
             success = true
         } catch (error) {
-            console.log(error)
             const { message } = error.response.data
             dispatch(cleanSession());
             showNotification(message)

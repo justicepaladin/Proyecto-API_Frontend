@@ -8,7 +8,6 @@ const useNotification = () => {
     const [timer, setTimer] = useState(null)
 
     const showNotificationHandler = (message, type = 'error') => {
-        console.log(message)
         dispatch(showNotification({ message, type }));
 
         const timer = setTimeout(() => {

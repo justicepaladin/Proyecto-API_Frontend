@@ -22,8 +22,13 @@ export function API_CLIENT() {
     instance.interceptors.response.use((response) => {
         response.ok = response.status === 200
         return response;
+    }, (error) => {
+        if (error.status === 403) {
+            // Se limpia lo persistido para forzar cerrado de sesion
+            localStorage.removeItem("persist:root")
+        }
+        return Promise.reject(error)
     });
-
 
     return instance
 
