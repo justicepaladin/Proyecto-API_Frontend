@@ -1,14 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { AiFillStar } from 'react-icons/ai'
-import { IoBagAddSharp } from 'react-icons/io5'
-import './Products.css'
-import { Nav } from '../Navigation/Nav'
-import {
-  listarProductosVistosRecientemente,
-  marcarVisto,
-} from '../api/products'
-import { getCategorias, getProducts } from '../services/productoService'
-import { useNavigate } from 'react-router-dom'
+import { ArrowBack, ArrowForward } from '@mui/icons-material'
 import {
   Checkbox,
   Container,
@@ -19,7 +9,21 @@ import {
   Select,
   Typography,
 } from '@mui/material'
-import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import React, { useEffect, useState } from 'react'
+import { AiFillStar } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
+import CarruselProductosVistos from '../components/CarruselProductosVistos'
+import CarruselProductosDestacados from '../components/CarruselProductosDestacados'
+import { ProductoMiniView } from '../components/ProductosMiniView'
+import { PRODUCTOS_VISTOS_ROWS_PER_PAGE } from '../constants'
+import { Nav } from '../Navigation/Nav'
+import {
+  getCategorias,
+  getProducts,
+  marcarVisto,
+  listarProductosVistosRecientemente,
+} from '../services/productoService'
+import './Products.css'
 
 export const Products = () => {
   const [listaProductos, setListaProductos] = useState([])
@@ -27,36 +31,15 @@ export const Products = () => {
   const [lastPage, setLastPage] = useState(0)
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
   const [tagsDisponibles, setTagDispoibles] = useState([])
-  const navigate = useNavigate()
 
   const [productosVistos, setProductosVistos] = useState([])
+  const [pageProductosVistos, setPageProductosVistos] = useState(0)
+
+  const navigate = useNavigate()
 
   // Función para agregar un producto a la lista de "Vistos Recientemente"
   const agregarProductoVisto = (producto) => {
     marcarVisto(producto.id)
-
-    const productosVistos =
-      JSON.parse(localStorage.getItem('productosVistos')) || []
-
-    // Si el producto ya está en la lista, lo removemos y lo agregamos al final
-    const index = productosVistos.findIndex((p) => p.id === producto.id)
-    if (index !== -1) {
-      productosVistos.splice(index, 1)
-    }
-
-    // Agregar el nuevo producto al inicio de la lista
-    productosVistos.unshift(producto)
-
-    // Limitamos el número de productos vistos a 5 (por ejemplo)
-    if (productosVistos.length > 5) {
-      productosVistos.pop()
-    }
-
-    // Guardamos la lista en el localStorage
-    localStorage.setItem('productosVistos', JSON.stringify(productosVistos))
-
-    // Actualizamos el estado
-    setProductosVistos(productosVistos)
   }
 
   const handleFetchProductos = async (page, tags) => {
@@ -71,19 +54,25 @@ export const Products = () => {
     })
   }
 
+  const handleFetchProductosVistos = (page) => {
+    listarProductosVistosRecientemente(
+      page,
+      PRODUCTOS_VISTOS_ROWS_PER_PAGE,
+    ).then((productos) => {
+      setProductosVistos(productos.pageItems)
+    })
+  }
+
   const handlePageChange = (value) => {
     let pageNew = page + value
     setPage(pageNew)
     handleFetchProductos(pageNew)
   }
 
-  // Recuperamos los productos vistos del localStorage al cargar el componente
   useEffect(() => {
     handleGetCategorias()
     handleFetchProductos(page)
-    const productosVistos =
-      JSON.parse(localStorage.getItem('productosVistos')) || []
-    setProductosVistos(productosVistos)
+    handleFetchProductosVistos(pageProductosVistos)
   }, [])
 
   const handleClickProducto = (producto) => {
@@ -105,54 +94,29 @@ export const Products = () => {
     handleFetchProductos(0, newSelectedTags)
   }
 
-  const ProductoMiniView = ({ producto }) => {
-    return (
-      <section
-        className="card"
-        key={producto.id}
-        onClick={(e) => handleClickProducto(producto)}
-      >
-        <img
-          src={producto.imagen}
-          alt={producto.nombre}
-          style={{ height: '100px', width: '100%', objectFit: 'contain' }}
-          className="card-img"
-        />
-        <div className="card-details">
-          <h3 className="card-title">{producto.nombre}</h3>
-          <section className="card-reviews">
-            {[...Array(producto.rating)].map((_, index) => (
-              <AiFillStar key={index} className="ratings-star" />
-            ))}
-            <span className="total-reviews"> {producto.rating}</span>
-          </section>
-          <section className="card-price">
-            <div className="price">
-              <del>${producto.precio + 100}</del>${producto.precio}
-            </div>
-          </section>
-        </div>
-      </section>
-    )
-  }
+  const nextPageProductosVistos = () =>
+    setPageProductosVistos((prevPage) => prevPage + 1)
+  const previousPageProductosVistos = () =>
+    setPageProductosVistos((prevPage) => Math.max(prevPage - 1, 0))
 
   return (
     <>
       <Nav />
 
-      {/* Productos Vistos Recientemente */}
       <section className="recently-viewed">
         <h2>Vistos Recientemente</h2>
-        <section className="card-container">
-          {productosVistos.map((producto, idx) => (
-            <ProductoMiniView key={idx} producto={producto} />
-          ))}
-        </section>
+        <CarruselProductosVistos />
+      </section>
+
+      <section className="recently-viewed">
+        <h2>Destacados</h2>
+        {/* Productos Vistos Recientemente */}
+        <CarruselProductosDestacados />
       </section>
 
       {/* Productos por Marca */}
       <section className="recently-viewed">
-        <h2>Productos:</h2>
+        <h2>Productos</h2>
         <Container
           sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
         >
