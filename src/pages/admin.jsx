@@ -15,7 +15,8 @@ import
     TextField,
     List,
     ListItem,
-    ListItemText
+    ListItemText,
+    Typography
 } 
 from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -32,8 +33,11 @@ export const ProductDashboard = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [stockModalOpen, setStockModalOpen] = useState(false);
     const [selectedProductStock, setSelectedProductStock] = useState(null);
-    // Manejo del stock en los modals, descomentar esto si funciona
+    // Manejo del stock en los modals
     const [stock, setStock] = useState([]);
+    // Manejo del error en los modals
+    const [error, setError] = useState(null);
+    const [openErrorModal, setOpenErrorModal] = useState(false);
 
     // Obtener la lista de productos usando el servicio
     const fetchProducts = async () => {
@@ -97,19 +101,6 @@ export const ProductDashboard = () => {
     };
 
     // Editar un producto existente
-    // const handleEditProduct = async (updatedProduct) => {
-    //     try {
-    //         const data = await editProduct(updatedProduct);
-    //         setProducts(products.map(p => (p.id === data.id ? data : p)));
-    //         setOpenEditModal(false);
-    //         setSelectedProduct(null);
-    //         setStock([]);
-    //     } catch (error) {
-    //         console.error('Error al editar el producto:', error);
-    //         // Manejar el error
-    //     }
-    // };
-    // Editar un producto existente
     const handleEditProduct = async (updatedProduct) => {
         try {
             // Fusionar el stock original con las modificaciones hechas
@@ -162,6 +153,12 @@ export const ProductDashboard = () => {
     const handleOpenStockModal = (product) => {
         setSelectedProductStock(product);
         setStockModalOpen(true);
+    };
+
+    // mostrar el error
+    const handleError = (errorMessage) => {
+        setError(errorMessage);
+        setOpenErrorModal(true);
     };
 
     // StockForm para los formularios
@@ -267,7 +264,7 @@ export const ProductDashboard = () => {
                             <TextField label="Descripción" name="descripcion" fullWidth margin="normal" />
                             <TextField label="Precio" name="precio" type="number" fullWidth margin="normal" />
                             <TextField label="Imagen" name="imagen" type="text" fullWidth margin='normal' />
-                            {/* Manejo del stock en los modals, descomentar esto si funciona */}
+                            {/* Manejo del stock en los modals */}
                             <StockForm 
                                     stock={stock} 
                                     onStockChange={handleStockChange} 
@@ -313,7 +310,7 @@ export const ProductDashboard = () => {
                                 <TextField label="Precio" name="precio" type="number" fullWidth margin="normal" defaultValue={selectedProduct.precio} />
                                 <TextField label="Imagen" name="imagen" type="text" fullWidth margin='normal' defaultValue={selectedProduct.imagen}/>
                                 {/* <TextField label="Stock" name="stock" type="number" fullWidth margin="normal" defaultValue={selectedProduct.stock} /> */}
-                                {/* Manejo del stock en los modals, descomentar esto si funciona */}
+                                {/* Manejo del stock en los modals */}
                                 <StockForm 
                                     stock={stock} 
                                     onStockChange={handleStockChange} 
@@ -350,6 +347,31 @@ export const ProductDashboard = () => {
                                 ))}
                             </List>
                         )}
+                    </Box>
+                </Modal>
+
+                {/* Modal de Error */}
+                <Modal open={openErrorModal} onClose={() => setOpenErrorModal(false)}>
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 300,
+                        bgcolor: 'background.paper',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}>
+                        <Typography variant="h6" color="error">
+                            Error
+                        </Typography>
+                        <Typography variant="body1">
+                            {error}
+                        </Typography>
+                        <Button onClick={() => setOpenErrorModal(false)} color="primary" variant="contained" sx={{ mt: 2 }}>
+                            Cerrar
+                        </Button>
                     </Box>
                 </Modal>
             </Container>
