@@ -34,7 +34,6 @@ const CarruselProductos = ({ listarProductos }) => {
       </div>
     )
 
-  console.log(currentPage, lastPage)
   return (
     <div
       style={{
