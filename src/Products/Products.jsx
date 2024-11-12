@@ -28,10 +28,6 @@ export const Products = () => {
   const handleFetchProductos = async (page, tags) => {
     getProducts(page, tags).then((response) => {
       setLastPage(response.lastPage)
-      // let categorias = response.pageItems.map(prod => prod.categorias.map(cat => cat.nombre))
-      // const uniqueList = Array.from(new Set(categorias.flat()));
-
-      // setTagDispoibles(uniqueList)
 
       setListaProductos(response.pageItems)
     })
@@ -40,12 +36,12 @@ export const Products = () => {
   const handlePageChange = (value) => {
     let pageNew = page + value
     setPage(pageNew)
-    handleFetchProductos(pageNew)
+    handleFetchProductos(pageNew, tagsSeleccionados)
   }
 
   useEffect(() => {
     handleGetCategorias()
-    handleFetchProductos(page)
+    handleFetchProductos(page, tagsSeleccionados)
   }, [])
 
   const handleGetCategorias = async () => {
@@ -55,7 +51,6 @@ export const Products = () => {
 
   const handleSelectTag = (nuevosFiltros) => {
     setPage(0)
-    console.log(nuevosFiltros)
     setTagsSeleccionados(nuevosFiltros)
     handleFetchProductos(0, nuevosFiltros)
   }
@@ -86,11 +81,9 @@ export const Products = () => {
 
       <section className="recently-viewed">
         <h2>Destacados</h2>
-        {/* Productos Vistos Recientemente */}
         <CarruselProductosDestacados />
       </section>
 
-      {/* Productos por Marca */}
       <section className="recently-viewed">
         <h2>Productos</h2>
         <Container sx={{ display: 'flex', alignItems: 'start' }}>
@@ -106,30 +99,6 @@ export const Products = () => {
               categorias={tagsDisponibles}
               onActualizarFiltros={handleSelectTag}
             />
-
-            {/*<Select
-            sx={{ marginX: '.5rem' }}
-            labelId="demo-multiple-checkbox-label"
-            label="filtros"
-            id="demo-multiple-checkbox"
-            multiple
-            value={tagsSeleccionados}
-            onChange={(e) => handleSelectTag(e)}
-            input={<OutlinedInput label="Tag" />}
-            renderValue={(e) => 'Filtro aplicado'}
-            // MenuProps={MenuProps}
-          >
-            {tagsDisponibles.map((tag) => (
-              <MenuItem key={tag.id} value={tag}>
-                <Checkbox
-                  checked={
-                    tagsSeleccionados.find((e) => e.id == tag.id) ? true : false
-                  }
-                />
-                <ListItemText primary={tag.nombre} />
-              </MenuItem>
-            ))}
-                </Select>*/}
           </Container>
           <Container sx={{ width: '100%' }}>
             <Paginado />

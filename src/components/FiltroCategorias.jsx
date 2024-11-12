@@ -35,8 +35,7 @@ const FiltroCategorias = ({ categorias = [], onActualizarFiltros }) => {
       {/* Lista de filtros */}
       {Object.entries(categoriasAgrupadas).map(
         ([idGrupo, grupo]) =>
-          console.log(filtrosSeleccionados, idGrupo) ||
-          (filtrosSeleccionados.every((f) => f.idGrupo != idGrupo) && (
+          filtrosSeleccionados.every((f) => f.idGrupo != idGrupo) && (
             <Box key={grupo.nombreGrupo} sx={{ marginBottom: '16px' }}>
               <Typography
                 variant="subtitle1"
@@ -63,7 +62,7 @@ const FiltroCategorias = ({ categorias = [], onActualizarFiltros }) => {
                 ))}
               </Box>
             </Box>
-          )),
+          ),
       )}
 
       {/* Filtros seleccionados */}

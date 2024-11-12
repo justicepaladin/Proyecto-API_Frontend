@@ -38,7 +38,6 @@ export const Register = () => {
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
   const handleSubmit = (e) => {
-    console.log(2)
     e.preventDefault()
     let valid = true
     let newErrors = {

@@ -55,7 +55,6 @@ export const PerfilPage = () => {
   }
 
   const handleChangePage = (value) => {
-    // console.log(value)
     setPage(value)
   }
 
@@ -76,7 +75,7 @@ export const PerfilPage = () => {
     pt: 2,
     px: 4,
     pb: 3,
-  };
+  }
 
   useEffect(() => {
     handleFetchProfile()
@@ -110,11 +109,11 @@ export const PerfilPage = () => {
             textAlign: 'start',
           }}
         >
-          <p>Nombre: {profileData.nombre} {profileData.apellido}</p>
+          <p>
+            Nombre: {profileData.nombre} {profileData.apellido}
+          </p>
           <p>Email: {profileData.email}</p>
         </Container>
-
-    
       </Container>
 
       <Container sx={{ marginTop: '2rem' }}>
@@ -129,27 +128,34 @@ export const PerfilPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {facturas.slice(page*rowsPerPage, (page*rowsPerPage + rowsPerPage)).map((factura) => {
-                return (
-                  <TableRow key={factura.id}>
-                    <TableCell>{factura.id}</TableCell>
-                    <TableCell>{factura.fechaCompra}</TableCell>
-                    <TableCell>${factura.total}</TableCell>
-                    <TableCell>
-                      <IconButton title="Ver detalle" onClick={e => handleOpenFacturaView(factura)}>
-                        <Preview />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+              {facturas
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((factura) => {
+                  return (
+                    <TableRow key={factura.id}>
+                      <TableCell>{factura.id}</TableCell>
+                      <TableCell>{factura.fechaCompra}</TableCell>
+                      <TableCell>${factura.total}</TableCell>
+                      <TableCell>
+                        <IconButton
+                          title="Ver detalle"
+                          onClick={(e) => handleOpenFacturaView(factura)}
+                        >
+                          <Preview />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
             </TableBody>
           </Table>
         </TableContainer>
 
         <TablePagination
           labelRowsPerPage="Resultados por pagina: "
-          labelDisplayedRows={(paginationInfo) => `${paginationInfo.from} de ${paginationInfo.to}, total: ${paginationInfo.count}`}
+          labelDisplayedRows={(paginationInfo) =>
+            `${paginationInfo.from} de ${paginationInfo.to}, total: ${paginationInfo.count}`
+          }
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={facturas.length}
@@ -160,21 +166,21 @@ export const PerfilPage = () => {
         />
       </Container>
 
-      {factura ? 
+      {factura ? (
         <Modal
           open={openFacturaView}
-          onClose={e => setOpenFacturaView(false)}
+          onClose={(e) => setOpenFacturaView(false)}
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <Box sx={{ ...style,width: "70vw" }}>
+          <Box sx={{ ...style, width: '70vw' }}>
             <h2 id="parent-modal-title">Detalle de factura</h2>
-            <FaturaDetails factura={factura}/>
+            <FaturaDetails factura={factura} />
           </Box>
         </Modal>
-      :
+      ) : (
         <></>
-      }
+      )}
     </>
   )
 }

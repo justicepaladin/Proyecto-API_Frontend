@@ -8,7 +8,7 @@ export async function getProducts(page, filtros, rowsPerPage) {
             page: page,
             rowsPerPage: rowsPerPage ?? 10,
         });
-        console.log(filtros)
+
         filtros?.map(filtro => {
             queryParams.append("categorias", filtro.id)
         })

@@ -72,7 +72,6 @@ export const ItemCarrito = ({ item }) => {
           }}
         >
           <Typography>Cantidad:</Typography>
-          {console.log(item)}
           <IconButton
             onClick={() => handleModificarCantidad(item, -1)}
             disabled={item.cantidad === 1}
