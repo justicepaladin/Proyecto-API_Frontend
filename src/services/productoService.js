@@ -2,25 +2,31 @@ import { API_CLIENT } from "../api/client";
 
 
 //Nota: debo renderizar los errores en la vista
-export async function getProducts(filtros = {}) {
+export async function getProducts(page, filtros) {
     try {
       // Crear un objeto URLSearchParams con paginación
       const queryParams = new URLSearchParams({
-        page: 0,
+        page: page,
         rowsPerPage: 10,
       });
+
+      console.log(filtros)
   
-      // Agregar los filtros al queryParams
-      Object.keys(filtros).forEach((key) => {
-        const value = filtros[key];
-        if (Array.isArray(value)) {
-          // Si el filtro es un array, agrega cada valor individualmente
-          value.forEach((item) => queryParams.append(key, item));
-        } else {
-          // Si no es un array, agregarlo directamente
-          queryParams.append(key, value);
-        }
-      });
+      filtros?.map(filtro => {
+        queryParams.append("categorias", filtro.id)
+      })
+
+    //   // Agregar los filtros al queryParams
+    //   Object.keys(filtros).forEach((key) => {
+    //     const value = filtros[key];
+    //     if (Array.isArray(value)) {
+    //       // Si el filtro es un array, agrega cada valor individualmente
+    //       value.forEach((item) => queryParams.append(key, item));
+    //     } else {
+    //       // Si no es un array, agregarlo directamente
+    //       queryParams.append(key, value);
+    //     }
+    //   });
   
       // Convertir los parámetros en una cadena de consulta
       const queryString = queryParams.toString();
@@ -106,6 +112,22 @@ export async function createStock(productoId, stock){
         throw error;
     }
 }
+
+
+export async function getCategorias(){
+    try 
+    {
+        let response = await API_CLIENT().get(`/v1/producto/categoria`);
+        
+        return response
+    } 
+    catch (error) 
+    {
+        console.error("Error al obtener categorias:", error);
+        throw error;
+    }
+}
+
 
 export async function getProductById(productId)
 {
