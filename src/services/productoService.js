@@ -1,7 +1,6 @@
 import { API_CLIENT } from "../api/client";
 
 
-//Nota: debo renderizar los errores en la vista
 export async function getProducts(page, filtros) {
     try {
         // Crear un objeto URLSearchParams con paginación

@@ -45,8 +45,7 @@ export const ProductDashboard = () => {
             const data = await getProducts();
             setProducts(data);
         } catch (error) {
-            console.error('Error al obtener los productos:', error);
-            // Hay que manejar el error para mostrarle un mensaje al usuario
+            handleError('Error al obtener los productos: ' + error.message);
         }
     };
 
@@ -62,8 +61,7 @@ export const ProductDashboard = () => {
                     setStock(selectedProduct.stock || []);
                 }
             } catch (error) {
-                console.error('Error al obtener los productos:', error);
-                // Manejo de errores
+                handleError('Error al obtener los productos: ' + error.message);
             }
         };
 
@@ -95,8 +93,7 @@ export const ProductDashboard = () => {
             setOpenAddModal(false);
             setStock([]);
         } catch (error) {
-            console.error('Error al agregar el producto:', error);
-            // Manejar el error
+            handleError('Error al obtener los productos: ' + error.message);
         }
     };
 
@@ -132,8 +129,7 @@ export const ProductDashboard = () => {
             setSelectedProduct(null);
             setStock([]);  // Limpiar el estado del stock después de la edición
         } catch (error) {
-            console.error('Error al editar el producto:', error);
-            // Manejo de errores
+            handleError('Error al obtener los productos: ' + error.message);
         }
     };
     
@@ -144,8 +140,7 @@ export const ProductDashboard = () => {
             await deleteProduct(productId);
             setProducts(products.filter(p => p.id !== productId));
         } catch (error) {
-            console.error('Error al eliminar el producto:', error);
-            // Manejar el error
+            handleError('Error al obtener los productos: ' + error.message);
         }
     };
 
