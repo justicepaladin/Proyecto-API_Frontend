@@ -10,7 +10,7 @@ const persistConfig = {
     key: 'root',
     // version: 1,
     storage,
-    whitelist: ['session']
+    whitelist: ['session', 'carrito']
 }
 
 const rootReducer = combineReducers({
