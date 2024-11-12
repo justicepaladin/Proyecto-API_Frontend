@@ -2,19 +2,38 @@ import { API_CLIENT } from "../api/client";
 
 
 //Nota: debo renderizar los errores en la vista
-export async function getProducts() 
-{
-    try 
-    {
-        const response = await API_CLIENT().get(`/v1/producto?page=0&rowsPerPage=10`);
-        return response.data;
-    } 
-    catch (error) 
-    {
-        console.error("Error al obtener los productos:", error);
-        throw error;
+export async function getProducts(filtros = {}) {
+    try {
+      // Crear un objeto URLSearchParams con paginación
+      const queryParams = new URLSearchParams({
+        page: 0,
+        rowsPerPage: 10,
+      });
+  
+      // Agregar los filtros al queryParams
+      Object.keys(filtros).forEach((key) => {
+        const value = filtros[key];
+        if (Array.isArray(value)) {
+          // Si el filtro es un array, agrega cada valor individualmente
+          value.forEach((item) => queryParams.append(key, item));
+        } else {
+          // Si no es un array, agregarlo directamente
+          queryParams.append(key, value);
+        }
+      });
+  
+      // Convertir los parámetros en una cadena de consulta
+      const queryString = queryParams.toString();
+  
+      // Construir la URL con los parámetros
+      const response = await API_CLIENT().get(`/v1/producto?${queryString}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error al obtener los productos:", error);
+      throw error;
     }
-}
+  }
+  
 
 export async function addProduct(newProduct) 
 {

@@ -114,27 +114,39 @@ body {
 }
 
 /* Filtro de marca */
+/* Contenedor de los filtros */
 .filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 20px 0;
-    background-color: #f0f0f0;
-    margin-top: 20px;
-    border-radius: 8px;
-}
-
-.filter-container label {
-    font-size: 1rem;
+    margin: 10px 0; /* Espaciado entre filtros */
+  }
+  
+  /* Contenedor de todos los filtros */
+  .filters-wrapper {
+    display: flex; /* Usamos flexbox para distribuir los filtros en una fila */
+    flex-wrap: wrap; /* Permite que los filtros se ajusten a varias filas si no caben */
+    gap: 20px; /* Espacio entre los filtros */
+    margin-bottom: 20px; /* Espacio entre los filtros y los productos */
+  }
+  
+  /* Estilo para los selectores de filtro */
+  .filter-container select {
+    padding: 8px 12px; /* Relleno para hacer los selectores más grandes */
+    font-size: 16px; /* Tamaño de fuente más grande */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde suave */
+    background-color: #f8f8f8; /* Fondo gris claro */
+    transition: all 0.3s ease; /* Transición suave al interactuar */
+  }
+  
+  /* Efecto de hover para los selectores */
+  .filter-container select:hover {
+    border-color: #007bff; /* Cambio de borde cuando el usuario pasa el mouse */
+    background-color: #e7f1ff; /* Fondo suave azul cuando pasa el mouse */
+  }
+  
+  /* Etiquetas de los filtros */
+  .filter-container label {
+    font-size: 14px;
     font-weight: bold;
     color: #333;
-}
-
-.filter-container select {
-    padding: 5px 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
+  }
+  

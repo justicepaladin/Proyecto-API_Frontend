@@ -32,6 +32,9 @@ export const Products = () => {
   })
 
   const [filtroMarca, setFiltroMarca] = useState('')
+  const [filtroEstilo, setFiltroEstilo] = useState('')
+  const [filtroSegmento, setFiltroSegmento] = useState('')
+  const [filtroDeporte, setFiltroDeporte] = useState('')
   const [productosVistos, setProductosVistos] = useState([])
 
   // Filtrar productos según la marca seleccionada
@@ -78,9 +81,21 @@ export const Products = () => {
   }
 
 
-  const handleFetchProductos = async () =>{
-    getProducts().then(response => setProductosDestacados(response.pageItems))
+  const handleFetchProductos = async () => {
+    // Crear un objeto de filtros basado en el estado
+    const filtros = {
+      marca: filtroMarca ? [filtroMarca] : ["Adidas", "Nike", "Vans", "DC", "Converse", "Reebok", "Puma"],
+      estilo: filtroEstilo ? [filtroEstilo] : ["Elegante", "Casual"],
+      segmento: filtroSegmento ? [filtroSegmento] : ["Niño", "Niña", "Hombre", "Mujer"],
+      deporte: filtroDeporte ? [filtroDeporte] : ["Skateboarding", "Running"],
+    };
+  
+    // Llamar a getProducts con los filtros
+    getProducts(filtros).then(response => {
+      setProductosDestacados(response.pageItems);
+    });
   }
+  
 
   // Recuperamos los productos vistos del localStorage al cargar el componente
   useEffect(() => {
@@ -128,6 +143,9 @@ export const Products = () => {
       <Nav />
 
       {/* Filtro por marca */}
+  
+    {/* Filtro por marca */}
+    <section className="filters-wrapper">
       <section className="filter-container">
         <label htmlFor="filter-marca">Filtrar por Marca:</label>
         <select
@@ -138,9 +156,54 @@ export const Products = () => {
           <option value="">Todas las Marcas</option>
           <option value="Nike">Nike</option>
           <option value="Adidas">Adidas</option>
-          {/* Agrega más opciones de marca según los productos disponibles */}
+          <option value="DC">DC</option>
+          <option value="Vans">Vans</option>
+          <option value="Converse">Converse</option>
         </select>
       </section>
+
+      <section className="filter-container">
+        <label htmlFor="filter-estilo">Filtrar por Estilo:</label>
+        <select
+          id="filter-estilo"
+          value={filtroEstilo}
+          onChange={(e) => setFiltroEstilo(e.target.value)}
+        >
+          <option value="">Todos los Estilos</option>
+          <option value="Elegante">Elegante</option>
+          <option value="Casual">Casual</option>
+        </select>
+      </section>
+
+      <section className="filter-container">
+        <label htmlFor="filter-segmento">Filtrar por Segmento:</label>
+        <select
+          id="filter-segmento"
+          value={filtroSegmento}
+          onChange={(e) => setFiltroSegmento(e.target.value)}
+        >
+          <option value="">Todos los Segmentos</option>
+          <option value="Niño">Niño</option>
+          <option value="Niña">Niña</option>
+          <option value="Hombre">Hombre</option>
+          <option value="Mujer">Mujer</option>
+        </select>
+      </section>
+
+      <section className="filter-container">
+        <label htmlFor="filter-deporte">Filtrar por Deporte:</label>
+        <select
+          id="filter-deporte"
+          value={filtroDeporte}
+          onChange={(e) => setFiltroDeporte(e.target.value)}
+        >
+          <option value="">Todos los Deportes</option>
+          <option value="Skateboarding">Skateboarding</option>
+          <option value="Running">Running</option>
+        </select>
+      </section>
+    </section>
+
 
       {/* Productos Vistos Recientemente */}
       <section className="recently-viewed">
