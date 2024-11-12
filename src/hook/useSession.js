@@ -10,6 +10,7 @@ const useSession = () => {
     const { showNotification } = useNotification()
 
     const register = async (email, password, usuario, fecha_nacimiento, nombre, apellido) => {
+        console.log(1)
         try {
             const response = await apiRegister(email, password, usuario, fecha_nacimiento, nombre, apellido)
             if (response.ok) {
