@@ -200,6 +200,7 @@ export const ProductDashboard = () => {
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Descripción</TableCell>
                                 <TableCell>Precio</TableCell>
+                                <TableCell>Imagen</TableCell>
                                 <TableCell>Stock</TableCell>
                                 <TableCell>Acciones</TableCell>
                             </TableRow>
@@ -210,6 +211,9 @@ export const ProductDashboard = () => {
                                     <TableCell>{product.nombre}</TableCell>
                                     <TableCell>{product.descripcion}</TableCell>
                                     <TableCell>{product.precio}</TableCell>
+                                    <TableCell>
+                                        <img src={product.imagen} alt={product.nombre} style={{ width: 50 }} />
+                                    </TableCell>
                                     <TableCell>
                                         <IconButton onClick={() => handleOpenStockModal(product)}>
                                             <Preview />
