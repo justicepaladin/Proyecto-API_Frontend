@@ -55,7 +55,8 @@ export const PerfilPage = () => {
   }
 
   const handleChangePage = (value) => {
-    setPage(value.target.value)
+    // console.log(value)
+    setPage(value)
   }
 
   const handleOpenFacturaView = (factura) => {
@@ -128,7 +129,7 @@ export const PerfilPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {facturas.map((factura) => {
+              {facturas.slice(page*rowsPerPage, (page*rowsPerPage + rowsPerPage)).map((factura) => {
                 return (
                   <TableRow key={factura.id}>
                     <TableCell>{factura.id}</TableCell>
@@ -147,12 +148,14 @@ export const PerfilPage = () => {
         </TableContainer>
 
         <TablePagination
+          labelRowsPerPage="Resultados por pagina: "
+          labelDisplayedRows={(paginationInfo) => `${paginationInfo.from} de ${paginationInfo.to}, total: ${paginationInfo.count}`}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={facturas.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onPageChange={handleChangePage}
+          onPageChange={(e, page) => handleChangePage(page)}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Container>
