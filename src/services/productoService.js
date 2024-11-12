@@ -86,6 +86,18 @@ export async function createStock(productoId, stock) {
 }
 
 
+export async function deleteStock(prodId,stockId) {
+    console.log("delete stock")
+    try {
+        await API_CLIENT().delete(`/producto/${prodId}/stock/${stockId}`);
+    }
+    catch (error) {
+        console.error("Error al eliminar el stock:", error);
+        throw error;
+    }
+}
+
+
 export async function getCategorias() {
     try {
         let response = await API_CLIENT().get(`/v1/producto/categoria`);

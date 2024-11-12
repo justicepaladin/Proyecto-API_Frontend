@@ -22,7 +22,7 @@ from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { getProducts , addProduct , editProduct , deleteProduct, modificarStock, createStock } from '../services/productoService';
+import { getProducts , addProduct , editProduct , deleteProduct, modificarStock, createStock, deleteStock } from '../services/productoService';
 import { Preview } from '@mui/icons-material';
 import { Nav } from '../Navigation/Nav';
 
@@ -83,6 +83,11 @@ export const ProductDashboard = () => {
     const removeStockRow = (index) => {
         setStock(stock.filter((_, i) => i !== index));
     };
+
+
+    const handleDeleteStock = async (prodId, stockId) => {
+        deleteStock(prodId, stockId)
+    }
 
     // Agregar un nuevo producto
     const handleAddProduct = async (newProduct) => {
@@ -157,7 +162,7 @@ export const ProductDashboard = () => {
     };
 
     // StockForm para los formularios
-    const StockForm = ({ stock, onStockChange, onAddRow, onRemoveRow }) => (
+    const StockForm = ({ stock, onStockChange, onAddRow, onRemoveRow, deleteStock, prodId }) => (
         <>
             <h3>Stock</h3>
             {stock.map((item, index) => (
@@ -176,7 +181,7 @@ export const ProductDashboard = () => {
                         onChange={(e) => onStockChange(index, 'cantidad', e.target.value)}
                         sx={{ marginRight: 2 }}
                     />
-                    <Button onClick={() => onRemoveRow(index)} color="error">Eliminar</Button>
+                    <Button onClick={() => {onRemoveRow(index); deleteStock(prodId, item.id)}} color="error">Eliminar</Button>
                 </Box>
             ))}
             <Button onClick={onAddRow} color="primary">Agregar Stock</Button>
@@ -315,6 +320,8 @@ export const ProductDashboard = () => {
                                     onStockChange={handleStockChange} 
                                     onAddRow={addStockRow} 
                                     onRemoveRow={removeStockRow} 
+                                    prodId={ selectedProduct.id}
+                                    deleteStock={handleDeleteStock}
                                 />
                                 <Button type="submit" variant="contained">
                                     Guardar
