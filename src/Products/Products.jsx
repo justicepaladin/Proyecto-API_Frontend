@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import CarruselProductosDestacados from '../components/CarruselProductosDestacados'
 import CarruselProductosVistos from '../components/CarruselProductosVistos'
+import FiltroCategorias from '../components/FiltroCategorias'
 import { ProductoMiniView } from '../components/ProductosMiniView'
 import { Nav } from '../Navigation/Nav'
 import { getCategorias, getProducts } from '../services/productoService'
@@ -52,14 +53,27 @@ export const Products = () => {
     setTagDispoibles(response.data)
   }
 
-  const handleSelectTag = (e) => {
-    const newSelectedTags = e.target.value // Nuevo array de valores seleccionados
-
+  const handleSelectTag = (nuevosFiltros) => {
     setPage(0)
-
-    setTagsSeleccionados(newSelectedTags)
-    handleFetchProductos(0, newSelectedTags)
+    console.log(nuevosFiltros)
+    setTagsSeleccionados(nuevosFiltros)
+    handleFetchProductos(0, nuevosFiltros)
   }
+
+  const Paginado = () => (
+    <>
+      <IconButton disabled={page == 0} onClick={(e) => handlePageChange(-1)}>
+        <ArrowBack />
+      </IconButton>
+      <IconButton
+        disabled={page == lastPage}
+        onClick={(e) => handlePageChange(1)}
+      >
+        <ArrowForward />
+      </IconButton>
+      <Typography variant="subtitle1">Pagina: {page + 1}</Typography>
+    </>
+  )
 
   return (
     <>
@@ -79,24 +93,21 @@ export const Products = () => {
       {/* Productos por Marca */}
       <section className="recently-viewed">
         <h2>Productos</h2>
-        <Container
-          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-        >
-          <IconButton
-            disabled={page == 0}
-            onClick={(e) => handlePageChange(-1)}
+        <Container sx={{ display: 'flex', alignItems: 'start' }}>
+          <Container
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '20%',
+            }}
           >
-            <ArrowBack />
-          </IconButton>
-          <IconButton
-            disabled={page == lastPage}
-            onClick={(e) => handlePageChange(1)}
-          >
-            <ArrowForward />
-          </IconButton>
-          <Typography variant="subtitle1">Pagina: {page + 1}</Typography>
+            <FiltroCategorias
+              categorias={tagsDisponibles}
+              onActualizarFiltros={handleSelectTag}
+            />
 
-          <Select
+            {/*<Select
             sx={{ marginX: '.5rem' }}
             labelId="demo-multiple-checkbox-label"
             label="filtros"
@@ -118,13 +129,17 @@ export const Products = () => {
                 <ListItemText primary={tag.nombre} />
               </MenuItem>
             ))}
-          </Select>
+                </Select>*/}
+          </Container>
+          <Container sx={{ width: '100%' }}>
+            <Paginado />
+            <section className="card-container">
+              {listaProductos.map((producto, idx) => (
+                <ProductoMiniView key={idx} producto={producto} />
+              ))}
+            </section>
+          </Container>
         </Container>
-        <section className="card-container">
-          {listaProductos.map((producto, idx) => (
-            <ProductoMiniView key={idx} producto={producto} />
-          ))}
-        </section>
       </section>
     </>
   )

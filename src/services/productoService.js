@@ -8,7 +8,7 @@ export async function getProducts(page, filtros, rowsPerPage) {
             page: page,
             rowsPerPage: rowsPerPage ?? 10,
         });
-
+        console.log(filtros)
         filtros?.map(filtro => {
             queryParams.append("categorias", filtro.id)
         })
@@ -86,7 +86,7 @@ export async function createStock(productoId, stock) {
 }
 
 
-export async function deleteStock(prodId,stockId) {
+export async function deleteStock(prodId, stockId) {
     console.log("delete stock")
     try {
         await API_CLIENT().delete(`/producto/${prodId}/stock/${stockId}`);
