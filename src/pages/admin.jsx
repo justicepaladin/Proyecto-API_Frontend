@@ -25,6 +25,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { getProducts , addProduct , editProduct , deleteProduct, modificarStock, createStock, deleteStock } from '../services/productoService';
 import { Preview } from '@mui/icons-material';
 import { Nav } from '../Navigation/Nav';
+import useErrorHandler from '../hook/useErrorHandler';
 
 export const ProductDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -36,8 +37,7 @@ export const ProductDashboard = () => {
     // Manejo del stock en los modals
     const [stock, setStock] = useState([]);
     // Manejo del error en los modals
-    const [error, setError] = useState(null);
-    const [openErrorModal, setOpenErrorModal] = useState(false);
+    const { showErrorHandler } = useErrorHandler()
 
     // Obtener la lista de productos usando el servicio
     const fetchProducts = async () => {
@@ -45,7 +45,7 @@ export const ProductDashboard = () => {
             const data = await getProducts(0, [], 100);
             setProducts(data);
         } catch (error) {
-            handleError('Error al obtener los productos: ' + error.message);
+            showErrorHandler('Error al obtener los productos: ' + error.message);
         }
     };
 
@@ -61,7 +61,7 @@ export const ProductDashboard = () => {
                     setStock(selectedProduct.stock || []);
                 }
             } catch (error) {
-                handleError('Error al obtener los productos: ' + error.message);
+                showErrorHandler('Error al obtener los productos: ' + error.message);
             }
         };
 
@@ -98,7 +98,7 @@ export const ProductDashboard = () => {
             setOpenAddModal(false);
             setStock([]);
         } catch (error) {
-            handleError('Error al agregar el producto: ' + error.message);
+            showErrorHandler('Error al agregar el producto: ' + error.message);
         }
     };
 
@@ -134,7 +134,7 @@ export const ProductDashboard = () => {
             setSelectedProduct(null);
             setStock([]);  // Limpiar el estado del stock después de la edición
         } catch (error) {
-            handleError('Error al editar el producto: ' + error.message);
+            showErrorHandler('Error al editar el producto: ' + error.message);
         }
     };
     
@@ -145,7 +145,7 @@ export const ProductDashboard = () => {
             await deleteProduct(productId);
             setProducts(products.filter(p => p.id !== productId));
         } catch (error) {
-            handleError('Error al eliminar el producto: ' + error.message);
+            showErrorHandler('Error al eliminar el producto: ' + error.message);
         }
     };
 
@@ -353,31 +353,6 @@ export const ProductDashboard = () => {
                                 ))}
                             </List>
                         )}
-                    </Box>
-                </Modal>
-
-                {/* Modal de Error */}
-                <Modal open={openErrorModal} onClose={() => setOpenErrorModal(false)}>
-                    <Box sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 300,
-                        bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
-                        p: 4,
-                    }}>
-                        <Typography variant="h6" color="error">
-                            Error
-                        </Typography>
-                        <Typography variant="body1">
-                            {error}
-                        </Typography>
-                        <Button onClick={() => setOpenErrorModal(false)} color="primary" variant="contained" sx={{ mt: 2 }}>
-                            Cerrar
-                        </Button>
                     </Box>
                 </Modal>
             </Container>

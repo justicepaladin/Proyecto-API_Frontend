@@ -8,11 +8,13 @@ import {
   Typography,
 } from '@mui/material'
 import { ProductoMiniView } from "../components/ProductosMiniView"
+import useErrorHandler from "../hook/useErrorHandler"
 
 export const Favoritos = () => {
     const [listaProductos, setListaProductos] = useState([])
     const [page, setPage] = useState(0)
     const [lastPage, setLastPage] = useState(0)
+    const { showErrorHandler } = useErrorHandler()
 
     const handleFetchProductos = async (page) => {
         getProductsFavoritos(page).then((response) => {
@@ -23,6 +25,8 @@ export const Favoritos = () => {
     }
 
     const handlePageChange = (value) => {
+
+        
         let pageNew = page + value
         setPage(pageNew)
         handleFetchProductos(pageNew)

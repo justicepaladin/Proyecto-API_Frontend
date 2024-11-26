@@ -21,6 +21,7 @@ import { getFacturas } from '../services/facturaService'
 import { Preview, Visibility } from '@mui/icons-material'
 import { FaturaDetails } from '../components/FacturaDetails'
 import { Nav } from '../Navigation/Nav'
+import useErrorHandler from '../hook/useErrorHandler'
 
 /**
  *
@@ -40,13 +41,15 @@ export const PerfilPage = () => {
   const [openFacturaView, setOpenFacturaView] = useState(false)
   const [factura, setFactura] = useState()
 
+  const { showErrorHandler } = useErrorHandler()
+
   const handleFetchProfile = async () => {
-    let user = await getProfile()
+    let user = await getProfile().catch(e => showErrorHandler(e.message))
     setProfileData(user)
   }
 
   const handleFetchFacturas = async () => {
-    let facturas = await getFacturas(page, rowsPerPage)
+    let facturas = await getFacturas(page, rowsPerPage).catch(e => showErrorHandler(e.message))
     setFacturas(facturas)
   }
 

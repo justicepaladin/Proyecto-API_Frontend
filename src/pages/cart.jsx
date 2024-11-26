@@ -13,6 +13,7 @@ import { agregarItem, purgeItems } from '../store/carritoReducer'
 import { ItemCarrito } from '../components/ItemCarrito'
 import { efectuarCompra } from '../services/facturaService'
 import { Nav } from '../Navigation/Nav'
+import useErrorHandler from '../hook/useErrorHandler'
 
 export const CartPage = () => {
   const exampleItem = {
@@ -28,12 +29,13 @@ export const CartPage = () => {
   const carrito = useSelector((state) => state.carrito.items)
   const [loading, setLoading] = useState(false)
   const [checkoutStatus, setCheckoutStatus] = useState()
+  const { showErrorHandler } = useErrorHandler()
 
   useEffect(() => {}, [])
 
   const handleDoCheckout = async () => {
     setLoading(true)
-    let response = await efectuarCompra(carrito)
+    let response = await efectuarCompra(carrito).catch((e) => {showErrorHandler(e.message)})
 
     setLoading(false)
     if (response.status == 201) {

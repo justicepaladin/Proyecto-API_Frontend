@@ -23,6 +23,7 @@ import useNotification from '../hook/useNotification'
 import { Nav } from '../Navigation/Nav'
 import { darQuitarFav, getProductById } from '../services/productoService'
 import { agregarItem } from '../store/carritoReducer'
+import useErrorHandler from '../hook/useErrorHandler'
 
 export const ProductView = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ export const ProductView = () => {
   const [producto, setProducto] = useState()
   const [stockSeleccionado, setStockSeleccionado] = useState()
   const { showNotification } = useNotification()
+  const {showErrorHandler} = useErrorHandler()
 
   const handleSeleccionarStock = (s) => {
     if (s === stockSeleccionado) {
@@ -56,11 +58,11 @@ export const ProductView = () => {
   const handleDarQuitarFav = () => {
     darQuitarFav(producto.id).then(() => {
       handleFetchProducto()
-    })
+    }).catch(e => showErrorHandler(e.message))
   }
 
   const handleFetchProducto = async () => {
-    getProductById(id).then(setProducto)
+    getProductById(id).then(setProducto).catch(e => showErrorHandler(e.message))
   }
 
   useEffect(() => {

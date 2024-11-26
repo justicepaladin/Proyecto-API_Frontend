@@ -16,7 +16,9 @@ export async function addProfile(newProfile){
 
 
 export async function getProfile(){
-    let response = await API_CLIENT().get(`/user`)
+    try{
+        let response = await API_CLIENT().get(`/user`)
 
-    return response.data
+        return response.data
+    }catch(e){throw e}
 }

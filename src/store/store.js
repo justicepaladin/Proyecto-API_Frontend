@@ -5,6 +5,7 @@ import sessionReducer from "./sessionReducer";
 import storage from 'redux-persist/lib/storage';
 import persistStore from "redux-persist/es/persistStore";
 import carritoReducer from "./carritoReducer";
+import errorReducer from "./errorReducer";
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +17,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     session: sessionReducer,
     notification: notificationReducer,
-    carrito: carritoReducer
+    carrito: carritoReducer,
+    errorHanlder: errorReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -145,19 +145,35 @@ export async function getProductById(productId) {
 }
 
 export const listarProductosVistosRecientemente = (page, rowsPerPage) => {
-    return API_CLIENT().get(`v1/producto/recientes?page=${page}&rowsPerPage=${rowsPerPage}`)
-        .then(response => response.data)
+    try{
+        return API_CLIENT().get(`v1/producto/recientes?page=${page}&rowsPerPage=${rowsPerPage}`)
+            .then(response => response.data)
+    }catch(e){
+        throw e
+    }
 }
 
 export const marcarVisto = (idProducto) => {
-    return API_CLIENT().post(`v1/producto/${idProducto}/visto`)
+    try{
+        return API_CLIENT().post(`v1/producto/${idProducto}/visto`)
+    }catch(e){
+        throw e
+    }
 }
 
 export const listaProductosDestacados = (page, rowsPerPage) => {
-    return API_CLIENT().get(`v1/producto/destacados?page=${page}&rowsPerPage=${rowsPerPage}`)
-        .then(response => response.data)
+    try{
+        return API_CLIENT().get(`v1/producto/destacados?page=${page}&rowsPerPage=${rowsPerPage}`)
+            .then(response => response.data)
+    }catch(e){
+        throw e
+    }
 }
 
 export const darQuitarFav = (idProducto) => {
-    return API_CLIENT().post(`v1/producto/${idProducto}/favorito`)
+    try{
+        return API_CLIENT().post(`v1/producto/${idProducto}/favorito`)
+    }catch(e){
+        throw e
+    }
 }

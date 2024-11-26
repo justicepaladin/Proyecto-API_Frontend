@@ -17,6 +17,7 @@ import { ProductoMiniView } from '../components/ProductosMiniView'
 import { Nav } from '../Navigation/Nav'
 import { getCategorias, getProducts } from '../services/productoService'
 import './Products.css'
+import useErrorHandler from '../hook/useErrorHandler'
 
 export const Products = () => {
   const [listaProductos, setListaProductos] = useState([])
@@ -24,13 +25,14 @@ export const Products = () => {
   const [lastPage, setLastPage] = useState(0)
   const [tagsSeleccionados, setTagsSeleccionados] = useState([])
   const [tagsDisponibles, setTagDispoibles] = useState([])
+  const { showErrorHandler } = useErrorHandler()
 
   const handleFetchProductos = async (page, tags) => {
     getProducts(page, tags).then((response) => {
       setLastPage(response.lastPage)
 
       setListaProductos(response.pageItems)
-    })
+    }).catch(e => showErrorHandler(e.message))
   }
 
   const handlePageChange = (value) => {
@@ -45,7 +47,7 @@ export const Products = () => {
   }, [])
 
   const handleGetCategorias = async () => {
-    let response = await getCategorias()
+    let response = await getCategorias().catch(e => showErrorHandler(e.message))
     setTagDispoibles(response.data)
   }
 
