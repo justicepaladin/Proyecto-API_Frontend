@@ -8,6 +8,7 @@ import { CartPage } from '../pages/cart'
 import { ProductView } from '../pages/productView'
 import { useSelector } from 'react-redux'
 import { Forbidden } from '../pages/forbidden'
+import { Favoritos } from '../pages/favoritos'
 
 const Router = () => {
   const isAdmin = useSelector(state => state.session.admin);
@@ -45,6 +46,10 @@ const Router = () => {
     {
       path: '/product/:id',
       element: <ProductView />,
+    },
+    {
+      path: '/favoritos',
+      element: <Favoritos />,
     },
   ]);
 };

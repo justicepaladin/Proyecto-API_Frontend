@@ -53,10 +53,16 @@ export const Nav = () => {
         <a onClick={(e) => navigate('/profile')}>
           <AiOutlineUser className="nav-icons" />
         </a>
+
+        <a onClick={(e) => navigate('/favoritos')}>
+          <FiHeart className="nav-icons" />
+        </a>
+
         {/*Icono de Logout */}
         <a onClick={handleLogout} style={{ cursor: 'pointer' }}>
           <AiOutlineLogout className="nav-icons" />
         </a>
+
       </div>
     </nav>
   )

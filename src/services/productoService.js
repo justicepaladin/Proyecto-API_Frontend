@@ -27,6 +27,28 @@ export async function getProducts(page, filtros, rowsPerPage) {
 }
 
 
+export async function getProductsFavoritos(page, rowsPerPage) {
+    try {
+        // Crear un objeto URLSearchParams con paginación
+        const queryParams = new URLSearchParams({
+            page: page,
+            rowsPerPage: rowsPerPage ?? 10,
+        });
+
+
+        // Convertir los parámetros en una cadena de consulta
+        const queryString = queryParams.toString();
+
+        // Construir la URL con los parámetros
+        const response = await API_CLIENT().get(`/v1/producto/favoritos?${queryString}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener los productos:", error);
+        throw error;
+    }
+}
+
+
 export async function addProduct(newProduct) {
     try {
         const response = await API_CLIENT().post(`/producto`, newProduct);
