@@ -57,6 +57,7 @@ export const Login = () => {
         if (loginSuccessFull) {
           setTimeout(() => {
             navigate('/')
+            navigate(0)
           }, 300)
         } else {
           setErrors({ ...errors, password: 'Credenciales incorrectas' })
