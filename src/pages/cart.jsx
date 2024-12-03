@@ -38,11 +38,9 @@ export const CartPage = () => {
     let response = await efectuarCompra(carrito).catch((e) => {showErrorHandler(e.response?.data?.message ?? e.message)})
 
     setLoading(false)
-    if (response.status == 201) {
+    if (response?.status == 201) {
       setCheckoutStatus('Compra realizada con exito!')
       dispatch(purgeItems())
-    } else {
-      setCheckoutStatus('Algo salio super mal....')
     }
   }
 
