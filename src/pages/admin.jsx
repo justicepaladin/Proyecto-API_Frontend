@@ -218,8 +218,10 @@ export const ProductDashboard = () => {
                         </TableHead>
                         <TableBody>
                             {products?.map((product) => (
-                                <TableRow key={product.id}>
-                                    <TableCell>{product.nombre}</TableCell>
+                                <TableRow key={product.id} style={{
+                                    backgroundColor: product.status ? "" : "lightgray"
+                                }}>
+                                    <TableCell>{product.status ? "" : "BAJA-"}{product.nombre}</TableCell>
                                     <TableCell>{product.descripcion}</TableCell>
                                     <TableCell>{product.precio}</TableCell>
                                     <TableCell>
