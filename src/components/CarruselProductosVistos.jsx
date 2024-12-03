@@ -11,7 +11,7 @@ const CarruselProductosVistos = () => {
     listarProductosVistosRecientemente(
       currentPage,
       PRODUCTOS_VISTOS_ROWS_PER_PAGE,
-    ).catch(e => showErrorHandler(e.message))
+    ).catch(e => showErrorHandler(e.response.data.message))
 
   return <CarruselProductos listarProductos={listarProductos} />
 }

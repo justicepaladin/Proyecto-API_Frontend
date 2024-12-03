@@ -32,7 +32,7 @@ export const Products = () => {
       setLastPage(response.lastPage)
 
       setListaProductos(response.pageItems)
-    }).catch(e => showErrorHandler(e.message))
+    }).catch(e => showErrorHandler(e.response.data.message))
   }
 
   const handlePageChange = (value) => {
@@ -47,7 +47,7 @@ export const Products = () => {
   }, [])
 
   const handleGetCategorias = async () => {
-    let response = await getCategorias().catch(e => showErrorHandler(e.message))
+    let response = await getCategorias().catch(e => showErrorHandler(e.response.data.message))
     setTagDispoibles(response.data)
   }
 

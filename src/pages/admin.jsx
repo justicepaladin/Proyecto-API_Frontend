@@ -45,7 +45,7 @@ export const ProductDashboard = () => {
             const data = await getProducts(0, [], 100);
             setProducts(data);
         } catch (error) {
-            showErrorHandler('Error al obtener los productos: ' + error.message);
+            showErrorHandler('Error al obtener los productos: ' + error.response.data.message);
         }
     };
 
@@ -61,7 +61,7 @@ export const ProductDashboard = () => {
                     setStock(selectedProduct.stock || []);
                 }
             } catch (error) {
-                showErrorHandler('Error al obtener los productos: ' + error.message);
+                showErrorHandler('Error al obtener los productos: ' + error.response.data.message);
             }
         };
 
@@ -86,7 +86,7 @@ export const ProductDashboard = () => {
 
 
     const handleDeleteStock = async (prodId, stockId) => {
-        deleteStock(prodId, stockId)
+        deleteStock(prodId, stockId).catch(e => showErrorHandler('Error al eliminar stock: ' + e.response.data.message))
     }
 
     // Agregar un nuevo producto
@@ -98,24 +98,30 @@ export const ProductDashboard = () => {
             setOpenAddModal(false);
             setStock([]);
         } catch (error) {
-            showErrorHandler('Error al agregar el producto: ' + error.message);
+            showErrorHandler('Error al agregar el producto: ' + error.response.data.message);
         }
     };
 
     // Editar un producto existente
     const handleEditProduct = async (updatedProduct) => {
+
+        console.log("edit procuto")
+        console.log(stock)
         try {
             // Fusionar el stock original con las modificaciones hechas
-            const updatedStock = selectedProduct.stock.map(originalStockItem => {
-                const modifiedStockItem = stock.find(item => item.id === originalStockItem.id);
-                if (modifiedStockItem) {
-                    return { ...originalStockItem, ...modifiedStockItem }; // Actualizar el stock modificado
-                }
-                return originalStockItem; // Mantener el stock original si no se ha modificado
-            });
+            // const updatedStock = selectedProduct.stock.map(originalStockItem => {
+            //     const modifiedStockItem = stock.find(item => item.id == originalStockItem.id);
+            //     console.log(modifiedStockItem)
+            //     if (modifiedStockItem) {
+            //         return { ...originalStockItem, ...modifiedStockItem }; // Actualizar el stock modificado
+            //     }
+            //     return originalStockItem; // Mantener el stock original si no se ha modificado
+            // });
+
+            // console.log(updatedStock)
 
             // Crear el nuevo producto con el stock actualizado
-            const updatedProductWithStock = { ...updatedProduct, stock: updatedStock };
+            const updatedProductWithStock = { ...updatedProduct, stock: stock };
 
             // Actualizar la parte del producto, nombre, descripcion, imagen
             const data = await editProduct(updatedProductWithStock);

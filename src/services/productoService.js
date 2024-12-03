@@ -96,6 +96,8 @@ export async function modificarStock(productoId, stock) {
 
 
 export async function createStock(productoId, stock) {
+
+    console.log("Create stock")
     try {
         stock.id = null
         let response = await API_CLIENT().post(`/producto/${productoId}/stock`, stock);

@@ -44,12 +44,12 @@ export const PerfilPage = () => {
   const { showErrorHandler } = useErrorHandler()
 
   const handleFetchProfile = async () => {
-    let user = await getProfile().catch(e => showErrorHandler(e.message))
+    let user = await getProfile().catch(e => showErrorHandler(e.response.data.message))
     setProfileData(user)
   }
 
   const handleFetchFacturas = async () => {
-    let facturas = await getFacturas(page, rowsPerPage).catch(e => showErrorHandler(e.message))
+    let facturas = await getFacturas(page, rowsPerPage).catch(e => showErrorHandler(e.response.data.message))
     setFacturas(facturas)
   }
 
