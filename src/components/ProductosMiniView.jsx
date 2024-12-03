@@ -30,10 +30,10 @@ export const ProductoMiniView = ({ producto }) => {
       <div className="card-details">
         <p className="card-title">{producto.nombre}</p>
         <section className="card-reviews">
-          {[...Array(producto.rating)].map((_, index) => (
+          {/* {[...Array(producto.rating)].map((_, index) => (
             <AiFillStar key={index} className="ratings-star" />
           ))}
-          <span className="total-reviews"> {producto.rating}</span>
+          <span className="total-reviews"> {producto.rating}</span> */}
         </section>
         <section className="card-price">
           <div className="price">
