@@ -34,7 +34,7 @@ import useErrorHandler from '../hook/useErrorHandler'
 
 export const PerfilPage = () => {
   const [profileData, setProfileData] = useState({ nombre: '', email: '' })
-  const [facturas, setFacturas] = useState([])
+  const [facturas, setFacturas] = useState(null)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -44,12 +44,17 @@ export const PerfilPage = () => {
   const { showErrorHandler } = useErrorHandler()
 
   const handleFetchProfile = async () => {
-    let user = await getProfile().catch(e => showErrorHandler((e.response?.data?.message ?? e.message)))
+    let user = await getProfile().catch((e) =>
+      showErrorHandler(e.response?.data?.message ?? e.message),
+    )
     setProfileData(user)
   }
 
   const handleFetchFacturas = async () => {
-    let facturas = await getFacturas(page, rowsPerPage).catch(e => showErrorHandler((e.response?.data?.message ?? e.message)))
+    let facturas = await getFacturas(page, rowsPerPage).catch((e) =>
+      showErrorHandler(e.response?.data?.message ?? e.message),
+    )
+
     setFacturas(facturas)
   }
 
@@ -84,6 +89,11 @@ export const PerfilPage = () => {
     handleFetchProfile()
     handleFetchFacturas()
   }, [])
+
+  useEffect(() => {
+    handleFetchFacturas()
+  }, [page, rowsPerPage])
+
   return (
     <>
       <Nav></Nav>
@@ -131,25 +141,23 @@ export const PerfilPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {facturas
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((factura) => {
-                  return (
-                    <TableRow key={factura.id}>
-                      <TableCell>{factura.id}</TableCell>
-                      <TableCell>{factura.fechaCompra}</TableCell>
-                      <TableCell>${factura.total}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          title="Ver detalle"
-                          onClick={(e) => handleOpenFacturaView(factura)}
-                        >
-                          <Preview />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
+              {facturas?.pageItems.map((factura) => {
+                return (
+                  <TableRow key={factura.id}>
+                    <TableCell>{factura.id}</TableCell>
+                    <TableCell>{factura.fechaCompra}</TableCell>
+                    <TableCell>${factura.total}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        title="Ver detalle"
+                        onClick={(e) => handleOpenFacturaView(factura)}
+                      >
+                        <Preview />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -161,7 +169,7 @@ export const PerfilPage = () => {
           }
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={facturas.length}
+          count={facturas && facturas.rowsPerPage * (facturas.lastPage + 1)}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={(e, page) => handleChangePage(page)}
