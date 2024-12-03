@@ -21,7 +21,7 @@ export const Favoritos = () => {
             setLastPage(response.lastPage)
 
             setListaProductos(response.pageItems)
-        })
+        }).catch(e => showErrorHandler(e.response?.data?.message ?? e.message))
     }
 
     const handlePageChange = (value) => {

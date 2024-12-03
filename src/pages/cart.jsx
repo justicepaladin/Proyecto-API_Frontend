@@ -35,7 +35,7 @@ export const CartPage = () => {
 
   const handleDoCheckout = async () => {
     setLoading(true)
-    let response = await efectuarCompra(carrito).catch((e) => {showErrorHandler(e.response.data.message)})
+    let response = await efectuarCompra(carrito).catch((e) => {showErrorHandler(e.response?.data?.message ?? e.message)})
 
     setLoading(false)
     if (response.status == 201) {

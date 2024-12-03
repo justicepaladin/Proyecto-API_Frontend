@@ -44,8 +44,8 @@ export const ProductDashboard = () => {
         try {
             const data = await getProducts(0, [], 100);
             setProducts(data);
-        } catch (error) {
-            showErrorHandler('Error al obtener los productos: ' + error.response.data.message);
+        } catch (e) {
+            showErrorHandler('Error al obtener los productos: ' + (e.response?.data?.message ?? e.message));
         }
     };
 
@@ -60,8 +60,8 @@ export const ProductDashboard = () => {
                 if (selectedProduct) {
                     setStock(selectedProduct.stock || []);
                 }
-            } catch (error) {
-                showErrorHandler('Error al obtener los productos: ' + error.response.data.message);
+            } catch (e) {
+                showErrorHandler('Error al obtener los productos: ' + (e.response?.data?.message ?? e.message));
             }
         };
 
@@ -86,7 +86,7 @@ export const ProductDashboard = () => {
 
 
     const handleDeleteStock = async (prodId, stockId) => {
-        deleteStock(prodId, stockId).catch(e => showErrorHandler('Error al eliminar stock: ' + e.response.data.message))
+        deleteStock(prodId, stockId).catch(e => showErrorHandler('Error al eliminar stock: ' + (e.response?.data?.message ?? e.message)))
     }
 
     // Agregar un nuevo producto
@@ -97,10 +97,12 @@ export const ProductDashboard = () => {
             setProducts([...products, data]);
             setOpenAddModal(false);
             setStock([]);
-        } catch (error) {
-            showErrorHandler('Error al agregar el producto: ' + error.response.data.message);
+        } catch (e) {
+            showErrorHandler('Error al agregar el producto: ' + (e.response?.data?.message ?? e.message));
         }
     };
+
+
 
     // Editar un producto existente
     const handleEditProduct = async (updatedProduct) => {
@@ -139,8 +141,8 @@ export const ProductDashboard = () => {
             setOpenEditModal(false);
             setSelectedProduct(null);
             setStock([]);  // Limpiar el estado del stock después de la edición
-        } catch (error) {
-            showErrorHandler('Error al editar el producto: ' + error.message);
+        } catch (e) {
+            showErrorHandler('Error al editar el producto: ' + e.response?.data?.message ?? e.message);
         }
     };
     
@@ -150,8 +152,8 @@ export const ProductDashboard = () => {
         try {
             await deleteProduct(productId);
             setProducts(products.filter(p => p.id !== productId));
-        } catch (error) {
-            showErrorHandler('Error al eliminar el producto: ' + error.message);
+        } catch (e) {
+            showErrorHandler('Error al eliminar el producto: ' + (e.response?.data?.message ?? e.message));
         }
     };
 

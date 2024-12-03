@@ -58,11 +58,11 @@ export const ProductView = () => {
   const handleDarQuitarFav = () => {
     darQuitarFav(producto.id).then(() => {
       handleFetchProducto()
-    }).catch(e => showErrorHandler(e.response.data.message))
+    }).catch(e => showErrorHandler((e.response?.data?.message ?? e.message)))
   }
 
   const handleFetchProducto = async () => {
-    getProductById(id).then(setProducto).catch(e => showErrorHandler(e.response.data.message))
+    getProductById(id).then(setProducto).catch(e => showErrorHandler(e.response?.data?.message ?? e.message))
   }
 
   useEffect(() => {
