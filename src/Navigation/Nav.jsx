@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { cleanSession, loginSuccess } from '../store/sessionReducer'
 import { useNavigate } from 'react-router-dom'
 import { Badge } from '@mui/material'
+import { purgeItems } from '../store/carritoReducer'
 
 export const Nav = () => {
   const dispatch = useDispatch()
@@ -20,7 +21,9 @@ export const Nav = () => {
   const navigate = useNavigate()
   const handleLogout = () => {
     dispatch(cleanSession({}))
+    dispatch(purgeItems())
     localStorage.removeItem('JWT')
+
     navigate('/login')
   }
   return (
