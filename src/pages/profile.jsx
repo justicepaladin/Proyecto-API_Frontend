@@ -1,6 +1,6 @@
+import { Preview } from '@mui/icons-material'
 import {
   Box,
-  Button,
   Container,
   IconButton,
   Modal,
@@ -8,20 +8,17 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
   TablePagination,
   TableRow,
 } from '@mui/material'
-import CreateIcon from '@mui/icons-material/Create'
-import user_default_img from '../assets/user_default.png'
 import { useEffect, useState } from 'react'
-import { getProfile } from '../services/profileService'
-import { getFacturas } from '../services/facturaService'
-import { Preview, Visibility } from '@mui/icons-material'
+import user_default_img from '../assets/user_default.png'
 import { FaturaDetails } from '../components/FacturaDetails'
-import { Nav } from '../Navigation/Nav'
 import useErrorHandler from '../hook/useErrorHandler'
+import { Nav } from '../Navigation/Nav'
+import { getFacturas } from '../services/facturaService'
+import { getProfile } from '../services/profileService'
 
 /**
  *
@@ -60,6 +57,8 @@ export const PerfilPage = () => {
 
   const handleChangeRowsPerPage = (value) => {
     setRowsPerPage(value.target.value)
+    setPage(0)
+    handleFetchFacturas()
   }
 
   const handleChangePage = (value) => {
@@ -165,11 +164,14 @@ export const PerfilPage = () => {
         <TablePagination
           labelRowsPerPage="Resultados por pagina: "
           labelDisplayedRows={(paginationInfo) =>
-            `${paginationInfo.from} de ${paginationInfo.to}, total: ${paginationInfo.count}`
+            console.log(paginationInfo) ||
+            `Pagina ${facturas?.currentPage + 1} de ${
+              facturas?.lastPage + 1
+            }, Total de facturas: ${paginationInfo.count}`
           }
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={facturas && facturas.rowsPerPage * (facturas.lastPage + 1)}
+          count={facturas?.totalRows}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={(e, page) => handleChangePage(page)}
